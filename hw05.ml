@@ -80,7 +80,17 @@ let foo x y b =
 
 (*****************************************************************************)
 (* Assignment 5.8 [4 Points] *)
-let eval_poly x coeffs = todo()
+let eval_poly x coeffs = 
+  let rec count l n = match l with [] -> n
+  | x::xs -> count xs (n+1)
+  in 
+  let rec evalPot sum x n = 
+  if(n=0) then sum else evalPot (sum+.x) x (n-1)
+  in 
+  let rec recEval_poly sum x coeffs n = match coeffs with [] -> sum
+  | x::xs -> recEval_poly (sum+.(evalPot 0.0 x n)) x xs n-1
+  in 
+  recEval_poly 0.0 x coeffs count coeffs 0
 
 let derive_poly coeffs = todo()
 
