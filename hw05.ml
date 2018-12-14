@@ -28,20 +28,9 @@ let rec find_by_last_name name db = match db with [] -> []
 
 (*****************************************************************************)
 (* Assignment 5.5 [6 Points] *)
-let remove_by_id id db = 
+let remove_by_id id db = todo()
 
-let rec count_in_semester sem db = match db [] -> [] 
-| x::xs -> if(x.semester=sem) then [1+count_in_semester sem xs] else [count_in_semester sem xs]
-
-let student_avg_grade id db = 
-  let rec avg_grade sum n l = match l with
-  [] -> sum /. n
-  | (_,grade)::xs -> avg_grade sum+.grade n+.1.0 xs
-  in match find_by_id id db with 
-  [{grade=[]}] -> 0.0
-  | [s] -> avg_grade 0.0 0.0 s
-  | _ -> 0.0
-
+let rec count_in_semester sem db = todo()
 
 let course_avg_grade course db = todo()
 
