@@ -50,7 +50,7 @@ let rec interleave3 l1 l2 l3 =
 (* Assignment 5.7 [3 Points] *)
 let foo x y b = 
   let change x y b = 
-  if b then (x+1,y,not b) else (x,y-1,not b)
+  if b then (x+1 y not b) else (x y-1 not b)
   in
   let rec myWhile x y b = if x < y then myWhile(change x y b) else x
   in
