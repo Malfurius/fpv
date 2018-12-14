@@ -54,7 +54,7 @@ let foo x y b =
   in
   let rec myWhile x y b = if x < y then myWhile(change x y b) else x
   in
-  if x>y then myWhile(y,x,b) else myWhile(x,y,b)
+  if x>y then myWhile y x b  else myWhile x y b
 
 
 
