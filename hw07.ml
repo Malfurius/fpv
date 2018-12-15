@@ -35,7 +35,7 @@ let f2 a b =
   else b
 let f3 x y= 
   let (a,b) = y in
-  x@(b,a)
+  x::(b,a)
 let f4 = todo
 let f5 = todo
 let f6 = todo
