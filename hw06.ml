@@ -138,7 +138,7 @@ let crawl cmd tree =
     | Pop::xs, t, st, p -> let s::ss = st in recCrawl xs s ss prev
     | [], t, st, p -> t
    in
-   recCrawl cmds tree [] []
+   recCrawl cmd tree [] []
 
 
 (*****************************************************************************)
