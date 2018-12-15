@@ -35,10 +35,7 @@ let f2 a b =
   else b
 let f3 x y= 
   let (a,b) = y in x@[b,a]
-let f4 a b =
-  if((List.length a) mod 2 = 0)
-  then ([b]@[a])
-  else ([a]@[b])
+let f4 = todo
 let f5 = todo
 let f6 = todo
 let f7 = todo
@@ -46,7 +43,8 @@ let f7 = todo
 (*****************************************************************************)
 (* Assignment 7.5 [7 points] *)
 let rec eval_expr (s : state) (e : expr) : value =
-  match e with Const c -> Rat c
+  match e with 
+  | Const c -> Rat c
   | UnOp (Neg, e) -> (match eval_expr s e with
     | Rat (n, d) -> Rat (-n, d)
     | _ -> failwith "invalid type")
@@ -60,7 +58,18 @@ let rec eval_expr (s : state) (e : expr) : value =
       | Div -> Rat (n1*d2,d1*n2))
     | _ -> failwith "invalid type")
   (* TODO: continue here *)
-    | _ -> todo ()
+  | Var v -> v
+  | Ite (e1,e2,e3) -> 
+    let (n,d) = eval_expr s e1
+    in
+    if(n=0)then eval_expr s e3 else eval_expr s e2
+  | Bind (x,e,b) -> 
+    let value = eval_expr s e1
+    in
+    match exp with
+    | Var -> v
+    | _ -> exp
+
 
 
 (*****************************************************************************)
