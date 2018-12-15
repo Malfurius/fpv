@@ -61,7 +61,7 @@ let rec eval_expr (s : state) (e : expr) : value =
   | Var v -> (match s v with Some x -> x
     | None -> failwith "unknown variable")
   | Ite (e1,e2,e3) -> 
-    let (n,d) = eval_expr s e1
+    let (sn,n,d) = eval_expr s e1
     in
     if(n=0)then eval_expr s e3 else eval_expr s e2
   | Bind (x,e,b) -> 
