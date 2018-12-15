@@ -130,7 +130,7 @@ let rec eval_expr expr =
 (* Assignment 6.8 [7 points] *)
 let crawl cmd tree = 
   let rec recCrawl cmd tree stack prev=
-    let (n,l,r) = tree in
+    let Node (n,l,r) = tree in
     match cmd with
     | Left::xs -> recCrawl xs tree stack l::prev
     | Right::xs -> recCrawl xs tree stack r::prev
