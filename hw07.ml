@@ -31,7 +31,7 @@ let f2 a b =
   match b with
   | [] -> a
   | x::xs -> 
-  let leng = fold_left f1 0 x
+  let leng = List.fold_left f1 0 x
   in
   if((leng) > max)
   then impl x xs leng
