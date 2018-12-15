@@ -92,7 +92,11 @@ let eval_poly x coeffs =
   in 
   recEval_poly 0.0 x coeffs count coeffs 0
 
-let derive_poly coeffs = todo()
+let derive_poly coeffs = 
+  let rec count l n = match l with [] -> n
+  | x::xs -> count xs (n+1)
+  in 
+  let changeCoeff l n = match l with [] ->
 
 
 (*****************************************************************************)
