@@ -58,7 +58,7 @@ let rec eval_expr (s : state) (e : expr) : value =
       | Div -> Rat (n1*d2,d1*n2))
     | _ -> failwith "invalid type")
   (* TODO: continue here *)
-  | Var v -> v
+  | Var v -> v : value
   | Ite (e1,e2,e3) -> 
     let (n,d) = eval_expr s e1
     in
