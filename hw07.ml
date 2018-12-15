@@ -26,7 +26,18 @@ type graph = (int * float * int) list
 (*****************************************************************************)
 (* Assignment 7.4 [7 points] *)
 let f1 a b = a+1
-let f2 = todo
+let f2 a b = 
+  let rec impl a b max =
+  match b with
+  | [] -> a
+  | x::xs -> 
+  let leng = fold_left f1 0 x
+  in
+  if((leng) > max)
+  then impl x xs leng
+  else impl a xs max
+  in
+  impl a b -1
 let f3 = todo
 let f4 = todo
 let f5 = todo
