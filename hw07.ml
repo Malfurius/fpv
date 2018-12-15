@@ -67,7 +67,7 @@ let rec eval_expr (s : state) (e : expr) : value =
   | Bind (x,e,b) -> 
     let value = eval_expr s e
     in
-    match exp with
+    match b with
     | Var v -> if(v=x) then value else v
     | _ -> exp
 
