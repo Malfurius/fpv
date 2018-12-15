@@ -37,7 +37,7 @@ let f2 a b =
   then impl x xs leng
   else impl a xs max
   in
-  impl a b -1
+  impl a b (-1)
 let f3 = todo
 let f4 = todo
 let f5 = todo
