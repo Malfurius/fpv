@@ -132,9 +132,9 @@ let crawl cmd tree =
   let rec recCrawl cmd tree stack prev=
     let (n,l,r) = tree in
     match cmd with
-    | Left::xs -> recCrawl xs tree stack l@prev
-    | Right::xs -> recCrawl xs tree stack r@prev
-    | Push::xs -> recCrawl xs tree tree@stack prev
+    | Left::xs -> recCrawl xs tree stack l::prev
+    | Right::xs -> recCrawl xs tree stack r::prev
+    | Push::xs -> recCrawl xs tree tree::stack prev
     | Pop::xs -> let s::ss = stack in recCrawl xs s ss prev
     | [] -> tree
   in
