@@ -27,14 +27,12 @@ type graph = (int * float * int) list
 (* Assignment 7.4 [7 points] *)
 let f1 a b = a+1
 let f2 a b = 
-  let rec impl a b max =
-  let leng = List.fold_left f1 0 b
+  let leng1 = List.fold_left f1 0 a in
+  let leng2 = List.fold_left f1 0 b 
   in
-  if((leng) > max)
-  then b
-  else a
-  in
-  impl a b (-1)
+  if((leng1) > leng2)
+  then a
+  else b
 let f3 = todo
 let f4 = todo
 let f5 = todo
