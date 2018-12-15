@@ -143,7 +143,7 @@ let crawl cmd tree =
     | New n::xs, t, st, [] -> 
       let newNode = Node (n,Empty,Empty)
       in
-      recCrawl xs newNode st [])
+      recCrawl xs newNode st []
     | Push::xs, t, st, p -> recCrawl xs t (t::st) prev
     | Pop::xs, t, st, p -> let s::ss = st in recCrawl xs s ss prev
     | [], t, st, p -> t
