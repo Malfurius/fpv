@@ -128,39 +128,19 @@ let rec eval_expr expr =
 
 (*****************************************************************************)
 (* Assignment 6.8 [7 points] *)
-(*
+
 let crawl cmd tree = 
   let rec recCrawl cmd tree stack prev=
     let Node (n,l,r) = tree
     in
     match cmd with
-    | Left::xs -> recCrawl xs Node (n,l,r) stack l::prev
-    | Right::xs -> recCrawl xs Node (n,l,r) stack r::prev
-    | Push::xs -> recCrawl xs Node (n,l,r) Node (n,l,r)::stack prev
+    | Left::xs -> recCrawl xs l stack l::prev
+    | Right::xs -> recCrawl xs r stack r::prev
+    | Push::xs -> recCrawl xs tree tree::stack prev
     | Pop::xs -> let s::ss = stack in recCrawl xs s ss prev
     | [] -> tree
    in
    recCrawl cmds tree [] []
-   *)
-
-   let crawl cmds tree =
-  let rec impl cmds stack tree =
-    match cmds, stack, tree with
-    | [], s, t -> false, [], s, t
-    | Up::cs, ss, t -> true, cs, ss, t
-    | Left::cs, ss, Node (x, l, r) ->
-      let u, nc, ns, nt = impl cs ss l in
-      if u then impl nc ns (Node (x, nt, r)) else u, nc, ns, Node (x, nt, r)
-    | Right::cs, ss, Node (x, l, r) ->
-      let u, nc, ns, nt = impl cs ss r in
-      if u then impl nc ns (Node (x, l, nt)) else u, nc, ns, Node (x, l, nt)
-    | New v::cs, ss, _ -> impl cs ss (Node (v, Empty, Empty))
-    | Delete::cs, ss, _ -> impl cs ss Empty
-    | Push::cs, ss, t -> impl cs (t::ss) t
-    | Pop::cs, s::ss, _ -> impl cs ss s
-    | _ -> failwith "unexpected"
-  in
-  let _,_,_, t = impl cmds [] tree in t
 
 
 (*****************************************************************************)
