@@ -28,14 +28,11 @@ type graph = (int * float * int) list
 let f1 a b = a+1
 let f2 a b = 
   let rec impl a b max =
-  match b with
-  | [] -> a
-  | x::xs -> 
-  let leng = List.fold_left f1 0 x
+  let leng = List.fold_left f1 0 b
   in
   if((leng) > max)
-  then impl x xs leng
-  else impl a xs max
+  then b
+  else a
   in
   impl a b (-1)
 let f3 = todo
