@@ -143,8 +143,7 @@ let crawl cmd tree =
     | Push::xs, t, st, p -> recCrawl xs t (t::st) prev
     | Pop::xs, t, st, p -> let s::ss = st in recCrawl xs s ss prev
     | [], t, st, p -> 
-    let open Printf in 
-    print_tree test t 
+    Printf.printf t
     t
    in
    recCrawl cmd tree [] []
