@@ -115,6 +115,8 @@ in { qtree with root= impl (0, 0, qtree.width, qtree.height) (px, py) qtree.root
 (* Assignment 6.6 [4 points] *)
 let rec eval_expr expr = 
   match expr with Const (num, denom) -> (num,denom)
+  | UnOp (uOp, ex1) ->
+    let (n,d) = eval_expr(ex1) in (-n,d)
   | BinOp (bOp, ex1, ex2) -> 
     let n1,d1 = eval_expr(ex1) in
     let n2,d2 = eval_expr(ex2) in
