@@ -95,7 +95,7 @@ let rec leq x y = match x,y with Succ x', Succ y' -> leq x' y' | _ -> x = Zero
 
 (*****************************************************************************)
 (* Assignment 6.6 [6 points] *)
-let insert x y tree = todo()
+let insert x y tree = todo
 
 
 (*****************************************************************************)
