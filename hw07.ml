@@ -65,7 +65,7 @@ let rec eval_expr (s : state) (e : expr) : value =
     | Rat (n,d) ->  if (n=0) then eval_expr s e3 else eval_expr s e2
     | _ -> failwith "invalid type")
   | Bind (x,e,b) -> 
-    let value = eval_expr s e1
+    let value = eval_expr s e
     in
     match exp with
     | Var -> v
