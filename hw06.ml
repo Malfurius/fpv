@@ -134,9 +134,9 @@ let crawl cmd tree =
     match cmd with
     | Left::xs -> recCrawl xs tree stack l@prev
     | Right::xs -> recCrawl xs tree stack r@prev
-    | [] -> (n,l,r)
+    | [] -> tree
   in
-  recCrawl cmd tree [] []
+   let _,_,_, t = recCrawl cmds tree [] [] in t
 
 
 (*****************************************************************************)
