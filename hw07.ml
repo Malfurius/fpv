@@ -61,9 +61,9 @@ let rec eval_expr (s : state) (e : expr) : value =
   | Var v -> (match s v with Some x -> x
     | None -> failwith "unknown variable")
   | Ite (e1,e2,e3) -> 
-    match (eval_expr s e1) with
+    (match (eval_expr s e1) with
     | Rat (n,d) ->  if (n=0) then eval_expr s e3 else eval_expr s e2
-    | _ -> failwith "invalid type"
+    | _ -> failwith "invalid type")
   | Bind (x,e,b) -> 
     let value = eval_expr s e1
     in
