@@ -33,7 +33,9 @@ let f2 a b =
   if((leng1) > leng2)
   then a
   else b
-let f3 = todo
+let f3 x y= 
+  let (a,b) = y in
+  x@(b,a)
 let f4 = todo
 let f5 = todo
 let f6 = todo
