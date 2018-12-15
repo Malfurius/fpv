@@ -140,11 +140,13 @@ let crawl cmd tree =
       if l=t
       then recCrawl xs newNode st (Node(v,newNode,r)::ps)
       else recCrawl xs newNode st (Node(v,l, newNode)::ps)
+    | New n::xs, t, st, [] -> 
+      let newNode = Node (n,Empty,Empty)
+      in
+      recCrawl xs newNode st [])
     | Push::xs, t, st, p -> recCrawl xs t (t::st) prev
     | Pop::xs, t, st, p -> let s::ss = st in recCrawl xs s ss prev
-    | [], t, st, p -> 
-    Printf.printf t
-    t
+    | [], t, st, p -> t
    in
    recCrawl cmd tree [] []
 
