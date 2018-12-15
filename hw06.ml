@@ -130,12 +130,12 @@ let rec eval_expr expr =
 (* Assignment 6.8 [7 points] *)
 
 let crawl cmd tree = 
-  let rec recCrawl cmd tree stack prev=
-    match cmd, tree with
-    | Left::xs, Node(v,l,r) -> recCrawl xs l stack l::prev
-    | Right::xs, Node(v,l,r) -> recCrawl xs r stack r::prev
-    | Push::xs, t -> recCrawl xs t t::stack prev
-    | Pop::xs, t -> let s::ss = stack in recCrawl xs s ss prev
+  let rec recCrawl cmd tree stack prev =
+    match cmd, tree, stack, prev with
+    | Left::xs, Node(v,l,r), st, p -> recCrawl xs l st l::p
+    | Right::xs, Node(v,l,r), st, p -> recCrawl xs r st r::p
+    | Push::xs, t, st, p -> recCrawl xs t t::st prev
+    | Pop::xs, t, st, p -> let s::ss = st in recCrawl xs s ss prev
     | [], t -> t
    in
    recCrawl cmds tree [] []
