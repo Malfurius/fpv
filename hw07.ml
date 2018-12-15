@@ -37,8 +37,8 @@ let f3 x y=
   let (a,b) = y in x@[b,a]
 let f4 a b =
   if((List.length a) mod 2 = 0)
-  then (b::a)
-  else (a::b)
+  then ([b]@[a])
+  else ([a]@[b])
 let f5 = todo
 let f6 = todo
 let f7 = todo
