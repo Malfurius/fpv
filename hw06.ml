@@ -135,7 +135,8 @@ let crawl cmd tree =
     | Left::xs, Node(v,l,r), st, p -> recCrawl xs l st (l::p)
     | Right::xs, Node(v,l,r), st, p -> recCrawl xs r st (r::p)
     | New n::xs, t, st, Node(v,l,r)::ps -> 
-      let newNode = Node(n,Empty,Empty)
+      let newNode = (Node (n,Empty,Empty))
+      print newNode
       in
       if l=t
       then recCrawl xs newNode st (Node(v,newNode,r)::ps)
