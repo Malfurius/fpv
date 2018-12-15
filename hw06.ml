@@ -136,7 +136,7 @@ let crawl cmd tree =
     | Right::xs, Node(v,l,r) -> recCrawl xs r stack r::prev
     | Push::xs, t -> recCrawl xs t t::stack prev
     | Pop::xs, t -> let s::ss = stack in recCrawl xs s ss prev
-    | [] -> tree
+    | [], t -> t
    in
    recCrawl cmds tree [] []
 
