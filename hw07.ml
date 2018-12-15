@@ -68,7 +68,8 @@ let rec eval_expr (s : state) (e : expr) : value =
     let value = eval_expr s e
     in
     match b with
-    | Var v -> if(v=x) then value else v
+    | Var v -> (match s v with Some va -> if(va=x)then value else va
+      | None -> failwith "unknown variable")
     | _ -> exp
 
 
