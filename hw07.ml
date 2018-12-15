@@ -68,7 +68,7 @@ let rec eval_expr (s : state) (e : expr) : value =
     let value = eval_expr s e
     in
     match exp with
-    | Var -> v
+    | Var v -> if(v=x) then value else v
     | _ -> exp
 
 
