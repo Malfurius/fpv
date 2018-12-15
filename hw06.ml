@@ -138,8 +138,9 @@ let crawl cmd tree =
       recCrawl xs p stack ps
     | New (n) -> let p::ps = prev in
       let (_,lp,lr) = p in
-      if(lp = tree) then lp = (n,Empty,Empty) else lr = (n,Empty,Empty)
-      recCrawl xs (n,_,_) stack prev
+      let newNode = (n,Empty,Empty) in
+      if(lp = tree) then lp = newNode else lr = newNode
+      recCrawl xs newNode stack prev
     | [] -> tree
   in
   recCrawl cmd tree [] []
