@@ -100,9 +100,8 @@ let insert x y tree = todo()
 
 (*****************************************************************************)
 (* Assignment 6.6 [4 points] *)
-let rec eval_expr expr = match expr with
-  Const (num, denom) -> expr.rat
-  | UnOp (uOp,ex(n,d)) -> eval_expr((-n,d)) 
+let rec eval_expr expr = 
+  match expr with Const (num, denom) -> expr.rat
   | BinOp (bOp, ex1, ex2) -> 
     let n1,d1 = eval_expr(ex1) in
     let n2,d2 = eval_expr(ex2) in
