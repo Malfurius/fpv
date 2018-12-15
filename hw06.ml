@@ -134,6 +134,12 @@ let crawl cmd tree =
     match cmd, tree, stack, prev with
     | Left::xs, Node(v,l,r), st, p -> recCrawl xs l st (l::p)
     | Right::xs, Node(v,l,r), st, p -> recCrawl xs r st (r::p)
+    | New n::xs, t, st, Node(v,l,r)::ps -> 
+      let newNode = Node(n,Empty,Empty)
+      in
+      if l=t
+      then recCrawl xs newNode st Node(v,newNode,r)
+      else recCrawl xs newNode st Node(v,l, newNode)
     | Push::xs, t, st, p -> recCrawl xs t (t::st) prev
     | Pop::xs, t, st, p -> let s::ss = st in recCrawl xs s ss prev
     | [], t, st, p -> t
