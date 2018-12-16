@@ -89,14 +89,14 @@ let find c t =
   let rec levelTrav l c t = 
   let (v,l,r) = t in
   if(l=0)
-  then []
+  then None
   else if( (c v) )
   then t else
   levelTrav (l-1) c (l()); levelTrav (l-1) c (r())
   in
   let rec infTrav n c t = 
   match (levelTrav n c t) with
-  | [] -> (infTrav n+1 c t)
+  | None -> (infTrav n+1 c t)
   | LNode node -> node
   in
   infTrav 1 c t
