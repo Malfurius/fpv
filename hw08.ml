@@ -92,7 +92,7 @@ let find c t =
   let rec levelTrav level c t = 
   let (v,l,r) = t in
   if(level=0)
-  then LNode((),(),() )
+  then LNode((),fun () -> (),fun () -> () )
   else if( (c v) )
   then t else
   levelTrav (level-1) c (l()); levelTrav (level-1) c (r())
