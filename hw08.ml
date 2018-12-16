@@ -97,9 +97,9 @@ let find c t =
     | [] -> if( c (v))
     then x()
     else broadSearch c t q@l@r
-    | x -> if( c (x()))
+    | x::xs -> if( c (x()))
     then x()
-    else broadSearch c t q@l@r 
+    else broadSearch c t xs@l@r 
   in
   broadSearch c t []
 
