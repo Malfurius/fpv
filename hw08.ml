@@ -31,7 +31,7 @@ let inorder_list t =
     | Empty -> []
     | Node (v,l,r) -> (match l with
       | Empty -> v@tailOrder r
-      | Node n -> tailOrder n)
+      | Node n(_,_,_) -> tailOrder n)
   in
   tailOrder t
 
