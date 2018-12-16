@@ -27,7 +27,13 @@ let string_of_tree =
     let open Printf in
     printf "test %s" "string"
 
-let inorder_list = todo
+let inorder_list t = 
+  let rec tailOrder t list =
+    match t with
+    | Empty -> []
+    | Node (v,l,r) -> tailOrder r ((tailOrder l list)::v)
+  in
+  tailOrder t []
 
 (*****************************************************************************)
 (* Assignment 8.8 [7 Points] *)
