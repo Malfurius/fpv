@@ -67,6 +67,9 @@ let rational_tree () =
 
 let compare a b = a-b
 
+let top = todo
+
+(*
 let top n t = 
   let rec top n t res =
   if(n=0) 
@@ -77,6 +80,7 @@ let top n t =
     top (n-1) (r()) r2
   in
   top n t Empty
+  *)
   
 
 let map f t = 
@@ -86,21 +90,19 @@ let map f t =
   in
   trav f t
 
-let find = todo
-
-(*
 let find c t = 
-  let rec levelTrav clevel level c t = 
-  let (v,l,r) = t in
-  if (clevel = 0)
-  then levelTrav (level+1) (level+1) c t
-  else(
-  if( (c v))
-  then t
-  else levelTrav (level-1) (level) c (l()))
+  let rec broadSearch c t q = 
+    let (v,l,r) = t
+    match q with 
+    | [] -> if( c (v))
+    then x()
+    else broadSearch c t q@l@r
+    | x -> if( c (x()))
+    then x()
+    else broadSearch c t q@l@r
+    
   in
-  levelTrav 1 1 c t
-  *)
+  broadSearch c t []
 
 
 (*****************************************************************************)
