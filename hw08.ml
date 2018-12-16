@@ -63,6 +63,9 @@ let rational_tree () =
 
 let compare a b = a-b
 
+let top = todo
+
+(*
 let top n t = 
   let rec top n t res =
   if(n=0) 
@@ -75,6 +78,7 @@ let top n t =
     top (n-1) (vr, lr, rr) r2
   in
   top n t Empty
+  *)
 
 let map = todo
 
