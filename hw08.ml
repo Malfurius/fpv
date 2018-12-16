@@ -26,12 +26,14 @@ let rec insert v f t = match t with
 let string_of_tree = todo
 
 let inorder_list t = 
-  let rec tailOrder t list =
+  let rec tailOrder t =
     match t with
-    | Empty -> (List.iter (Printf.printf "%d ") list; list)
-    | Node (v,l,r) -> (tailOrder r ((tailOrder l list)@v))
+    | Empty -> []
+    | Node (v,l,r) -> (match l with
+      | Empty -> v@tailOrder r
+      | Node n -> tailOrder n)
   in
-  tailOrder t []
+  tailOrder t
 
 (*****************************************************************************)
 (* Assignment 8.8 [7 Points] *)
