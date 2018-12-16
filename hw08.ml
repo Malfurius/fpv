@@ -28,7 +28,7 @@ let string_of_tree = todo
 let inorder_list t = 
   let rec tailOrder t list =
     match t with
-    | Empty -> list
+    | Empty -> List.iter (Printf.printf "%d ") list;list
     | Node (v,l,r) -> tailOrder r ((tailOrder l list)@v)
   in
   tailOrder t []
