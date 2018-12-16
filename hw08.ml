@@ -56,7 +56,7 @@ let interval_tree (l,h)=
   in
   create (l,h)
 
-let rational_tree =
+let rational_tree () =
   let rec create (n,d) = LNode( (n,d), (fun () -> create (n,d+1)), (fun () -> create (n+1,d)))
   in
   create (0,0)
