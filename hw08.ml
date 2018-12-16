@@ -39,7 +39,7 @@ let rec insert v f t = match t with
 let string_of_tree = todo
 
 let inorder_list t = 
-  let rec tailOrder t list s =
+  let rec tailOrder t list =
     match t with
     | Empty -> list
     | Node (v,l,r) -> (tailOrder r ((tailOrder l list)@[v]))
@@ -147,7 +147,7 @@ let is_inorder_list_tailrec () =
   let l = List.init 10000 (fun x -> x) in
   let t = insert_ l compare Empty in
   try ignore(inorder_list t); true with Stack_overflow -> false
-  
+
 let check_layer_tree r t =
   let rec impl n r (LNode (x, fl, fr)) =
     if n <= 0 then true else r = x && (impl (n-1) (r+1) (fl ())) && (impl (n-1) (r+1) (fr ()))
