@@ -14,7 +14,7 @@ let interleave3 l1 l2 l3  =
   | x::xs -> linAdd (x::res) xs
   in
   let rec tailInter2 res l1 l2 = match l1 with
-  | [] -> l2@res
+  | [] -> linAdd res l2
   | x::xs -> tailInter2 (x::res) l2 xs
   in
   let rec tailInter3 res l1 l2 l3 = match l1 with
