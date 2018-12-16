@@ -84,12 +84,12 @@ let map f t =
   LNode((f v),( fun () -> (trav f (l() ) ) ),(fun () -> (trav f (r() ) ) ))
   in
   trav f t
-
+(*
 let find c t = 
   let rec levelTrav l c t = 
   let (v,l,r) = t in
   if(l=0)
-  then ()
+  then LNode((),(),() )
   else if( (c v) )
   then t else
   levelTrav (l-1) c (l()); levelTrav (l-1) c (r())
@@ -100,6 +100,7 @@ let find c t =
   | LNode node -> node
   in
   infTrav 1 c t
+  *)
 
 
 (*****************************************************************************)
