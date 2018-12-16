@@ -42,7 +42,7 @@ let inorder_list t =
   let rec tailOrder t list =
     match t with
     | Empty -> list
-    | Node (v,l,r) -> (tailOrder l (v::(tailOrder r list)))
+    | Node (v,l,r) -> (tailOrder r (v::(tailOrder l list)))
   in
   List.rev (tailOrder t [])
 
