@@ -96,7 +96,7 @@ let find c t =
   else(
   if( (c v))
   then t
-  else levelTrav (level-1) (level) c (l())
+  else levelTrav (level-1) (level) c (l()))
   in
   levelTrav 1 1 c t
 
