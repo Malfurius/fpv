@@ -2,7 +2,7 @@ let todo _ = failwith "todo"
 
 (* type definitions *)
 type 'a tree = Empty | Node of 'a * 'a tree * 'a tree
-type 'a ltree = Null | LNode of 'a * (unit -> 'a ltree) * (unit -> 'a ltree)
+type 'a ltree = LNode of 'a * (unit -> 'a ltree) * (unit -> 'a ltree)
 
 (*****************************************************************************)
 (**************************** HOMEWORK STARTS HERE ***************************)
@@ -89,11 +89,16 @@ let map f t =
   trav f t
 
 let find c t = 
-  let rec levelTrav level c t = 
+  let rec levelTrav clevel level c t = 
   let (v,l,r) = t in
+  if (clevel = 0)
+  then levelTrav (level+1) (level+1) c t
+  else(
   if( (c v))
   then t
-  else levelTrav (level-1) c (l())
+  else levelTrav (level-1) c (l()); levelTrav (level-1) c (r()))
+  in
+  levelTrav 1 1 c t
 
 
 (*****************************************************************************)
