@@ -144,12 +144,9 @@ let insert_ vs cmp t =
 let is_inorder_list_tailrec () =
   ignore(inorder_list Empty);
   (* TODO: Tutors will check *)
-  (*
   let l = List.init 10000 (fun x -> x) in
   let t = insert_ l compare Empty in
   try ignore(inorder_list t); true with Stack_overflow -> false
-  *)
-  true
 
 let check_layer_tree r t =
   let rec impl n r (LNode (x, fl, fr)) =
