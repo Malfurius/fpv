@@ -70,7 +70,7 @@ let top n t =
   else let (v,l,r) = t in
     let r1 = insert v compare res;
     let r2 = top (n-1) l r1;
-    top (n-1) r r2
+    top (n-1) r r2;;
   in
   top n t Empty
 
