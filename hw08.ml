@@ -83,7 +83,7 @@ let top n t =
 let map f t = 
   let rec trav f t = 
   let LNode(v,l,r) = t in
-  LNode((f v), (trav f l()), (trav f r()))
+  LNode((f v), (trav f (l())), (trav f (r())))
   in
   trav f t
 
