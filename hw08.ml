@@ -61,7 +61,16 @@ let rational_tree () =
   in
   create (0,0)
 
-let top = todo
+let compare a b = a-b
+
+let top n t = 
+  let rec top n t res =
+  if(n=0) 
+  then res 
+  else let (v,l,r) = t in
+    insert v compare res; top (n-1) l res; top (n-1) r res
+  in
+  top n t Empty
 
 let map = todo
 
