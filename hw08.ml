@@ -15,7 +15,7 @@ let interleave3 l1 l2 l3  =
   in
   let rec tailInter3 res l1 l2 l3 = match l1 with
   | [] -> tailInter2 res l2 l3
-  | x::xs -> tailInter3 (List.rev (x::res))) l2 l3 xs
+  | x::xs -> tailInter3 (List.rev (x::res)) l2 l3 xs
   in
   tailInter3 [] l1 l2 l3
 
