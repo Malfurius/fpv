@@ -8,7 +8,7 @@ type 'a ltree = LNode of 'a * (unit -> 'a ltree) * (unit -> 'a ltree)
 (**************************** HOMEWORK STARTS HERE ***************************)
 (*****************************************************************************)
 (* Assignment 8.5 [3 Points] *)
-let interleave3 = todo
+let interleave3 l1 l2 l3 = todo
 
 (*****************************************************************************)
 (* Assignment 8.6 [4 Points] *)
@@ -38,7 +38,7 @@ let inorder_list t =
 let layer_tree r = 
   let const r n = r+n
   in
-  let rec create r n = LNode((const r n), (create r (n+1)), (create r (n+1))) 
+  let rec create r n = LNode((const r n), (fun () -> create r (n+1)), (fun () -> create r (n+1))) 
   in
   create r 0
 
