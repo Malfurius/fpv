@@ -95,7 +95,7 @@ let find c t =
     let (v,l,r) = t in
     match q with 
     | [] -> if( c (v))
-    then x()
+    then v
     else broadSearch c t q@l@r
     | x::xs -> if( c (x()))
     then x()
