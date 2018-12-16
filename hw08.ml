@@ -35,7 +35,12 @@ let inorder_list t =
 
 (*****************************************************************************)
 (* Assignment 8.8 [7 Points] *)
-let layer_tree = todo
+let layer_tree r = 
+  let const r n = r+n
+  in
+  let rec create r n = ltree((const r n), (create r (n+1)), (create r (n+1))) 
+  in
+  create r 0
 
 let interval_tree = todo
 
