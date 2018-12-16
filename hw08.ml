@@ -39,7 +39,7 @@ let rec insert v f t = match t with
 let string_of_tree = todo
 
 let inorder_list t = 
-  let rec tailOrder t list =
+  let rec tailOrder t list s =
     match t with
     | Empty -> list
     | Node (v,l,r) -> (tailOrder r ((tailOrder l list)@[v]))
@@ -88,6 +88,9 @@ let map f t =
   in
   trav f t
 
+let find = todo
+
+(*
 let find c t = 
   let rec levelTrav clevel level c t = 
   let (v,l,r) = t in
@@ -99,6 +102,7 @@ let find c t =
   else levelTrav (level-1) (level) c (l()))
   in
   levelTrav 1 1 c t
+  *)
 
 
 (*****************************************************************************)
@@ -140,10 +144,10 @@ let insert_ vs cmp t =
 let is_inorder_list_tailrec () =
   ignore(inorder_list Empty);
   (* TODO: Tutors will check *)
-  (* let l = List.init 10000 (fun x -> x) in
+  let l = List.init 10000 (fun x -> x) in
   let t = insert_ l compare Empty in
-  try ignore(inorder_list t); true with Stack_overflow -> false *)
-  true
+  try ignore(inorder_list t); true with Stack_overflow -> false
+  
 let check_layer_tree r t =
   let rec impl n r (LNode (x, fl, fr)) =
     if n <= 0 then true else r = x && (impl (n-1) (r+1) (fl ())) && (impl (n-1) (r+1) (fr ()))
