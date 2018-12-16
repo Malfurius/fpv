@@ -88,16 +88,14 @@ let map f t =
   in
   trav f t
 
-let find = todo
-(*
 let find c t = 
-  let rec levelTrav l c t = 
+  let rec levelTrav level c t = 
   let (v,l,r) = t in
-  if(l=0)
+  if(level=0)
   then LNode((),(),() )
   else if( (c v) )
   then t else
-  levelTrav (l-1) c (l()); levelTrav (l-1) c (r())
+  levelTrav (level-1) c (l()); levelTrav (level-1) c (r())
   in
   let rec infTrav n c t = 
   match (levelTrav n c t) with
@@ -105,7 +103,6 @@ let find c t =
   | LNode node -> node
   in
   infTrav 1 c t
-  *)
 
 
 (*****************************************************************************)
