@@ -19,7 +19,7 @@ let lagrange = todo
 let rec insert v f t = match t with
   | Empty -> Node(v,Empty,Empty)
   | Node(n,l,r) -> (if((f v n) = 0)
-   then Node(n,l,r) else if(f < 0)
+   then Node(n,l,r) else if((f v n) < 0)
    then Node(n,(insert v f l),r)
    else Node(n,l,(insert v f r)))
 
