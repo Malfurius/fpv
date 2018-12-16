@@ -97,7 +97,7 @@ let find c t =
   let rec infTrav n c t = 
   match (levelTrav n c t) with
   | [] -> (infTrav n+1 c t)
-  | x -> x
+  | LNode node -> node
   in
   infTrav 1 c t
 
