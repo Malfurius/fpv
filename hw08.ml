@@ -25,7 +25,7 @@ let rec insert v f t = match t with
 
 let string_of_tree = 
     let open Printf in
-    printf "test %s" "string";
+    printf "test %s" "string"
 
 let inorder_list = todo
 
