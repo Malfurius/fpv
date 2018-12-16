@@ -94,7 +94,7 @@ let find c t =
   if(level=0)
   then Null
   else if( (c v) )
-  then t else
+  then LNode(v,l,r) else
   levelTrav (level-1) c (l()); levelTrav (level-1) c (r())
   in
   let rec infTrav n c t = 
