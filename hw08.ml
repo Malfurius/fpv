@@ -96,10 +96,10 @@ let find c t =
     match q with 
     | [] -> if( c (v))
     then t
-    else broadSearch c t q@l@r
+    else broadSearch c t (q@l@r)
     | x::xs -> if( c (x()))
     then x()
-    else broadSearch c t xs@l@r 
+    else broadSearch c t (xs@l@r) 
   in
   broadSearch c t []
 
