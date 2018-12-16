@@ -23,9 +23,7 @@ let rec insert v f t = match t with
    then Node(n,(insert v f l),r)
    else Node(n,l,(insert v f r)))
 
-let string_of_tree = 
-    let open Printf in
-    printf "test %s" "string"
+let string_of_tree = todo
 
 let inorder_list t = 
   let rec tailOrder t list =
