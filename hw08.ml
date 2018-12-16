@@ -11,7 +11,7 @@ type 'a ltree = LNode of 'a * (unit -> 'a ltree) * (unit -> 'a ltree)
 let interleave3 l1 l2 l3  = 
   let rec linAdd res l1 = match l1 with
   | [] -> res
-  | x::xs -> linAdd x::res l1
+  | x::xs -> linAdd (x::res) xs
   in
   let rec tailInter2 res l1 l2 = match l1 with
   | [] -> l2@res
