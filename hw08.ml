@@ -8,7 +8,7 @@ type 'a ltree = LNode of 'a * (unit -> 'a ltree) * (unit -> 'a ltree)
 (**************************** HOMEWORK STARTS HERE ***************************)
 (*****************************************************************************)
 (* Assignment 8.5 [3 Points] *)
-let interleave3 l1 l2 l3 = todo
+let interleave3  = todo
 
 (*****************************************************************************)
 (* Assignment 8.6 [4 Points] *)
