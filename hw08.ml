@@ -8,7 +8,17 @@ type 'a ltree = LNode of 'a * (unit -> 'a ltree) * (unit -> 'a ltree)
 (**************************** HOMEWORK STARTS HERE ***************************)
 (*****************************************************************************)
 (* Assignment 8.5 [3 Points] *)
-let interleave3  = todo
+let interleave3 l1 l2 l3  = 
+  let rec tailInter3 res l1 l2 l3 = match l1 with
+  | [] -> tailInter2 res l2 l3
+  | x::xs -> tailInter3 (res@x) l2 l3 l1
+  in
+  let rec tailInter2 res l1 l2 = match l1 with
+  | [] -> res@l2
+  | x::xs -> tailInter2 (res@l1) l2 l1
+  in
+  tailInter3 [] l1 l2 l3
+
 
 (*****************************************************************************)
 (* Assignment 8.6 [4 Points] *)
