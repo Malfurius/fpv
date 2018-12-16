@@ -23,7 +23,9 @@ let rec insert v f t = match t with
    then Node(n,(insert v f l),r)
    else Node(n,l,(insert v f r)))
 
-let string_of_tree = print_string "Hello!"; flush stdout;;
+let string_of_tree = 
+    let open Printf in
+    printf "test %s" "string";
 
 let inorder_list = todo
 
