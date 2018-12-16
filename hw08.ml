@@ -92,15 +92,14 @@ let map f t =
 
 let find c t = 
   let rec broadSearch c t q = 
-    let (v,l,r) = t
+    let (v,l,r) = t in
     match q with 
     | [] -> if( c (v))
     then x()
     else broadSearch c t q@l@r
     | x -> if( c (x()))
     then x()
-    else broadSearch c t q@l@r
-    
+    else broadSearch c t q@l@r 
   in
   broadSearch c t []
 
