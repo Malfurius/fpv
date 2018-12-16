@@ -91,18 +91,9 @@ let map f t =
 let find c t = 
   let rec levelTrav level c t = 
   let (v,l,r) = t in
-  if(level=0)
-  then Null
-  else if( (c v) )
-  then LNode(v,l,r) else
-  levelTrav (level-1) c (l()); levelTrav (level-1) c (r())
-  in
-  let rec infTrav n c t = 
-  match (levelTrav n c t) with
-  | Null -> (infTrav n+1 c t)
-  | LNode node -> node
-  in
-  infTrav 1 c t
+  if( (c v))
+  then t
+  else levelTrav (level-1) c (l())
 
 
 (*****************************************************************************)
