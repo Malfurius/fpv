@@ -68,7 +68,9 @@ let top n t =
   if(n=0) 
   then res 
   else let (v,l,r) = t in
-    insert v compare res; top (n-1) l res; top (n-1) r res
+    insert v compare res;
+    top (n-1) l res;
+    top (n-1) r res
   in
   top n t Empty
 
