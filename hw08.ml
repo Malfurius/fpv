@@ -52,7 +52,7 @@ let layer_tree r =
   create r 0
 
 let interval_tree (l,h)= 
-  let rec create (l,h) = LNode((l,h),(fun () -> create (l, (l+.h)/.2)), (fun () -> create ((l+.h)/.2, h)))
+  let rec create (l,h) = LNode((l,h),(fun () -> create (l, (l+.h)/.2.0)), (fun () -> create ((l+.h)/.2.0, h)))
   in
   create (l,h)
 
