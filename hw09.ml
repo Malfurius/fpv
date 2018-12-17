@@ -52,7 +52,7 @@ let read_wishlist fName =
       | [toy;imp] -> (if (toy <> "") 
                       then (  if(is_int imp) 
                               then ((toy, (int_of_string imp))::list )
-                              else (Invalid_file_format (fName)))
+                              else raise (Invalid_file_format (fName)))
                       else raise (Invalid_file_format (fName) ))
       | _ -> raise (Invalid_file_format (fName) )
   in
