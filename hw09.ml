@@ -42,7 +42,9 @@ let read_notes fName =
     let nList = readChildren list line in read nList
     with End_of_file -> list
   in
-  (List.rev (read []))
+  try
+  List.rev (read [])
+  with -> e close_in file
 
 (* 9.3 - 2 *)
 let read_wishlist fName = 
@@ -62,7 +64,9 @@ let read_wishlist fName =
     let nList = readWish list line in read nList
     with End_of_file -> list
   in
+  try
   List.rev (read [])
+  with -> e close_in file
 
 (* 9.3 - 3 *)
 let load_catalogue = todo
