@@ -18,9 +18,9 @@ let read_notes =
   in 
   let rec read list =
   let line = input_line file in
-  match line with
-  | End_of_file -> list
-  | _ -> let nList = readChildren list line in read nList
+  try 
+   readChildren list line in read nList
+  with End_of_file -> list
   in
   List.rev (read [])
 
