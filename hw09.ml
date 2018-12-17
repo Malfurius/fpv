@@ -16,7 +16,7 @@ let debugList list =
       | (child,behavior)::xs -> match behavior with
                                 | Nice -> debugString ("("^child^",NICE)"); printElement xs
                                 | Naughty -> debugString ("("^child^",NAUGHTY)"); printElement xs
-      | [] -> 
+      | [] -> ""
   in
   printElement list
  
