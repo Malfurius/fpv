@@ -1,0 +1,5 @@
+shawl:2
+karaoke machine:13
+horse
+unicorn:8
+soccer shoes:3
