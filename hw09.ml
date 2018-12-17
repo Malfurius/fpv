@@ -22,7 +22,7 @@ let read_notes =
   | End_of_file -> list
   | _ -> let nList = readChildren list line in read nList
   in
-  read []
+  List.rev (read [])
 
 (* 9.3 - 2 *)
 let read_wishlist = todo
