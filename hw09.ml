@@ -8,14 +8,16 @@ exception Invalid_file_format of string
 
 let noteName = "santas_notes.txt"
 
+let debugString str = Printf.printf "%s" str
+
 (* 9.3 - 1 *)
 let read_notes fName = 
   let file = open_in fName in
   let rec readChildren list line = 
     match String.split_on_char ':' line with
       | [child;behavior] -> (match behavior with
-                            | "nice" -> (Printf.printf "%s" behavior);(child,Nice)::list
-                            | "naughty" -> (Printf.printf "%s" behavior);(child,Naughty)::list)
+                            | "nice" -> (child,Nice)::list
+                            | "naughty" ->(child,Naughty)::list)
       | _ -> failwith noteName
   in 
   let rec read list =
@@ -24,7 +26,7 @@ let read_notes fName =
     let nList = readChildren list line in read nList
     with End_of_file -> list
   in
-  (List.rev (read []))
+  let res = (List.rev (read [])) in debugString res; res
 
 (* 9.3 - 2 *)
 let read_wishlist = todo
