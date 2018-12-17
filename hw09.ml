@@ -26,8 +26,8 @@ let read_notes fName =
   let rec readChildren list line = 
     match String.split_on_char ':' line with
       | [child;behavior] -> (match behavior with
-                            | "nice" -> (child,Nice)::list
-                            | "naughty" ->(child,Naughty)::list)
+                            | "nice" -> ((child,Nice)::list)
+                            | "naughty" ->((child,Naughty)::list))
       | _ -> failwith noteName
   in 
   let rec read list =
