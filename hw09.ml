@@ -31,8 +31,8 @@ let read_notes fName =
       | _ -> failwith noteName
   in 
   let rec read list =
-    let line = input_line file in
     try 
+    let line = input_line file in
     let nList = readChildren list line in read nList
     with End_of_file -> list
   in
