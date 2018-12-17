@@ -12,15 +12,15 @@ let noteName = "santas_notes.txt"
 let read_notes = 
   let file = open_in noteName in
   let rec readChildren list line = 
-  match String.split_on_char ':' line with
-  | [child;behavior] -> (child,behavior)::list
-  | _ -> failwith noteName
+    match String.split_on_char ':' line with
+      | [child;behavior] -> (child,behavior)::list
+      | _ -> failwith noteName
   in 
   let rec read list =
-  let line = input_line file in
-  try 
-   readChildren list line in read nList
-  with End_of_file -> list
+    let line = input_line file in
+    try 
+    let nList = readChildren list line in read nList
+    with End_of_file -> list
   in
   List.rev (read [])
 
