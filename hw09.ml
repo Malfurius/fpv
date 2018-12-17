@@ -25,10 +25,12 @@ let read_notes fName =
   let file = open_in fName in
   let rec readChildren list line = 
     match String.split_on_char ':' line with
-      | [child;behavior] -> (match behavior with
+      | [child;behavior] -> (if(child <> "" )then (match behavior with
                             | "nice" -> ((child,Nice)::list)
                             | "naughty" ->((child,Naughty)::list))
-      | _ -> failwith noteName
+                            else raise Invalid_file_format fName)
+                            | _ -> raise Invalid_file_format fName
+      | _ -> raise Invalid_file_format fName
   in 
   let rec read list =
     try 
@@ -36,7 +38,7 @@ let read_notes fName =
     let nList = readChildren list line in read nList
     with End_of_file -> list
   in
-  let res = (List.rev (read [])) in debugList res; res
+  (List.rev (read []))
 
 (* 9.3 - 2 *)
 let read_wishlist = todo
