@@ -68,6 +68,7 @@ let rec eval_expr (s : state) (e : expr) : value =
     let value = eval_expr s e
     in
     eval_expr (fun r -> if r = x then Some value else s r) b
+  | Func 
 
 
 

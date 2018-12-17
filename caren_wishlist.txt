@@ -1,0 +1,9 @@
+barbie's dream house:12
+karaoke machine:51
+horse:80
+ocaml book:1
+unicorn:90
+socks:41
+colorful pencils:16
+penguin doll:99
+guinea pig:53

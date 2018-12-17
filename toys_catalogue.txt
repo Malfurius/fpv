@@ -1,0 +1,16 @@
+penguin doll:1
+ocaml book:2
+time machine:53
+bike:7
+barbie's dream house:5
+guitar:6
+colorful pencils:2
+socks:1
+shawl:2
+karaoke machine:13
+superman action doll set:3
+guinea pig:3
+horse:10
+unicorn:8
+sand toys:4
+soccer shoes:3
