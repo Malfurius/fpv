@@ -12,7 +12,7 @@ let noteName = "santas_notes.txt"
 let read_notes = 
   let file = open_in noteName in
   let rec readChildren list line = 
-  match String.split_on_char : line with
+  match String.split_on_char ':' line with
   | [child;behavior] -> notes(child,behavior)::list
   | _ -> failwith (Invalid_file_format noteName)
   in 
