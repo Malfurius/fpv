@@ -9,8 +9,8 @@ exception Invalid_file_format of string
 let noteName = "santas_notes.txt"
 
 (* 9.3 - 1 *)
-let read_notes = 
-  let file = open_in noteName in
+let read_notes fName = 
+  let file = open_in fName in
   let rec readChildren list line = 
     match String.split_on_char ':' line with
       | [child;behavior] -> (match behavior with
