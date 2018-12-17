@@ -49,7 +49,7 @@ let read_wishlist fName =
   let file = open_in fName in
   let rec readWish list line = 
     match String.split_on_char ':' line with
-      | [toy,imp] -> (if (toy <> "") 
+      | [toy;imp] -> (if (toy <> "") 
                       then (  if(is_int imp) 
                               then ((toy, (int_of_string imp))::list )
                               else (Invalid_file_format (fName)))
