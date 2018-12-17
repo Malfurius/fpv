@@ -13,9 +13,9 @@ let debugString str = Printf.printf "%s" str
 let debugList list = 
   let rec printElement list = 
     match list with
-      | (child,behavior)::xs -> match behavior with
+      | (child,behavior)::xs -> (match behavior with
                                 | Nice -> debugString ("("^child^",NICE)"); printElement xs
-                                | Naughty -> debugString ("("^child^",NAUGHTY)"); printElement xs
+                                | Naughty -> debugString ("("^child^",NAUGHTY)"); printElement xs)
       | [] -> ""
   in
   printElement list
