@@ -10,6 +10,10 @@ let noteName = "santas_notes.txt"
 
 let debugString str = Printf.printf "%s" str
 
+let is_int s =
+  try ignore (int_of_string s); true
+  with _ -> false
+
 let debugList list = 
   let rec printElement list = 
     match list with
@@ -41,7 +45,23 @@ let read_notes fName =
   (List.rev (read []))
 
 (* 9.3 - 2 *)
-let read_wishlist = todo
+let read_wishlist fName = 
+  let file = open_in fName in
+  let rec readWish list line = 
+    match String.split_on_char ':' line with
+      | [toy,imp] -> (if (toy <> "") 
+                      then (  if(is_int imp) 
+                              then ((toy, (int_of_string imp))::list )
+                              else (Invalid_file_format (fName)))
+                      else raise (Invalid_file_format (fName) ))
+  in
+  let rec read list =
+    try
+    let line = input_line file in
+    let nList = readWish list line in read nList
+    with End_of_file -> list
+  in
+  List.rev (read [])
 
 (* 9.3 - 3 *)
 let load_catalogue = todo
