@@ -12,6 +12,7 @@ let noteName = "santas_notes.txt"
 let read_notes fName = 
   let file = open_in fName in
   let rec readChildren list line = 
+    let print = Printf.printf "%s" line in
     match String.split_on_char ':' line with
       | [child;behavior] -> (match behavior with
                             | "Nice" -> (child,Nice)::list
