@@ -10,6 +10,16 @@ let noteName = "santas_notes.txt"
 
 let debugString str = Printf.printf "%s" str
 
+let debugList list = 
+  let rec printElement list = 
+    match list with
+      | (child,behavior)::xs -> match behavior with
+                                | Nice -> debugString ("("^child^",NICE)"); printElement xs
+                                | Naughty -> debugString ("("^child^",NAUGHTY)"); printElement xs
+      | [] -> 
+  in
+  printElement list
+ 
 (* 9.3 - 1 *)
 let read_notes fName = 
   let file = open_in fName in
@@ -26,7 +36,7 @@ let read_notes fName =
     let nList = readChildren list line in read nList
     with End_of_file -> list
   in
-  let res = (List.rev (read [])) in debugString res; res
+  let res = (List.rev (read [])) in debugList res; res
 
 (* 9.3 - 2 *)
 let read_wishlist = todo
