@@ -54,6 +54,7 @@ let read_wishlist fName =
                               then ((toy, (int_of_string imp))::list )
                               else (Invalid_file_format (fName)))
                       else raise (Invalid_file_format (fName) ))
+      | _ -> raise (Invalid_file_format (fName) )
   in
   let rec read list =
     try
