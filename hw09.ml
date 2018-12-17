@@ -28,9 +28,9 @@ let read_notes fName =
       | [child;behavior] -> (if(child <> "" )then (match behavior with
                             | "nice" -> ((child,Nice)::list)
                             | "naughty" ->((child,Naughty)::list))
-                            else raise Invalid_file_format fName)
-                            | _ -> raise Invalid_file_format fName
-      | _ -> raise Invalid_file_format fName
+                            else (raise Invalid_file_format fName) )
+                            | _ -> raise (Invalid_file_format fName)
+      | _ -> raise (Invalid_file_format fName)
   in 
   let rec read list =
     try 
