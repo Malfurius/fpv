@@ -14,7 +14,7 @@ let read_notes =
   let rec readChildren list line = 
   match String.split_on_char ':' line with
   | [child;behavior] -> (child,behavior)::list
-  | _ -> failwith (Invalid_file_format noteName)
+  | _ -> failwith noteName
   in 
   let rec read list =
   let line = input_line file in
