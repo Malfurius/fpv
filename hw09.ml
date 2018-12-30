@@ -102,7 +102,7 @@ let write_list fName list =
   let rec printItem nlist = 
     match nlist with
     | x::xs -> Printf.fprintf file "%s;" x; printItem xs
-    | x::[] -> Printf.fprintf file "%s;" x
+    | x::[] -> Printf.fprintf file "%s" x
   in
   printItem list; close_out file
 
