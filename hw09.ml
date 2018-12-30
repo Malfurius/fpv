@@ -97,7 +97,14 @@ let load_catalogue fName=
   with e -> close_in file; raise e
 
 (* 9.3 - 4 *)
-let write_list = todo
+let write_list fName list = 
+  let file = open_out fName in
+  let rec printItem list in 
+    match list with
+    | x::xs -> Printf.fprintf file "%s" x; printItem xs
+    | [] -> 
+  in
+  printItem list
 
 (* 9.3 - 5 *)
 let write_letter = todo
