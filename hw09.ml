@@ -99,12 +99,13 @@ let load_catalogue fName=
 (* 9.3 - 4 *)
 let write_list fName list = 
   let file = open_out fName in
-  let rec printItem nlist = 
+  let rec printItem nlist = ^
+    Printf.fprintf file "[";
     match nlist with
     | x::xs -> (if (xs<>[]) 
                 then (Printf.fprintf file "%s;" x;debugString (x^";") ;printItem xs)
                 else (Printf.fprintf file "%s" x; debugString x))
-    | [] -> debugString ""
+    | [] -> Printf.fprintf file "]"
   in
   printItem list; close_out file
 
