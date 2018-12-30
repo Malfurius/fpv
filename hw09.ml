@@ -104,7 +104,7 @@ let write_list fName list =
     | x::xs -> Printf.fprintf file "%s;" x; debugString x ;printItem xs
     | x::[] -> Printf.fprintf file "%s" x;debugString x
   in
-  printItem list; close_out file
+  printItem (List.rev list); close_out file
 
 (* 9.3 - 5 *)
 let write_letter = todo
