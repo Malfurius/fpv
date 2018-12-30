@@ -99,7 +99,7 @@ let load_catalogue fName=
 (* 9.3 - 4 *)
 let write_list fName list = 
   let file = open_out fName in
-  let rec printItem nlist in 
+  let rec printItem nlist = 
     match nlist with
     | x::xs -> Printf.fprintf file "%s" x; printItem xs
     | [] -> 
