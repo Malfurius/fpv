@@ -101,8 +101,10 @@ let write_list fName list =
   let file = open_out fName in
   let rec printItem nlist = 
     match nlist with
-    | x::xs -> Printf.fprintf file "%s;" x; debugString (x^";") ;printItem xs
-    | x::[] -> Printf.fprintf file "%s" x;debugString x
+    | x::xs -> (if (xs<>[]) 
+                then (Printf.fprintf file "%s;" x ;printItem xs)
+                else (Printf.fprintf file "%s" x))
+    | [] -> debugString ""
   in
   printItem list; close_out file
 
