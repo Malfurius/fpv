@@ -44,7 +44,7 @@ let read_notes fName =
   in
   try
   List.rev (read [])
-  with -> e close_in file
+  with e -> close_in file
 
 (* 9.3 - 2 *)
 let read_wishlist fName = 
@@ -66,7 +66,7 @@ let read_wishlist fName =
   in
   try
   List.rev (read [])
-  with -> e close_in file
+  with e -> close_in file
 
 (* 9.3 - 3 *)
 let load_catalogue fName= 
@@ -88,7 +88,7 @@ let load_catalogue fName=
   in
   try
   List.rev(read [])
-  with -> e close_in file
+  with e -> close_in file
 
 (* 9.3 - 4 *)
 let write_list = todo
