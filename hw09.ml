@@ -102,9 +102,9 @@ let write_list fName list =
   let rec printItem nlist = 
     match nlist with
     | x::xs -> Printf.fprintf file "%s" x; printItem xs
-    | [] -> 
+    | [] -> unit
   in
-  printItem list
+  printItem list; close_out file
 
 (* 9.3 - 5 *)
 let write_letter = todo
