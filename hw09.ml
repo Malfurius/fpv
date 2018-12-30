@@ -87,7 +87,7 @@ let load_catalogue fName=
     with End_of_file -> list
   in
   try
-  debugList List.rev(read [])
+  List.rev(read [])
   with -> e close_in file
 
 (* 9.3 - 4 *)
