@@ -69,7 +69,26 @@ let read_wishlist fName =
   with -> e close_in file
 
 (* 9.3 - 3 *)
-let load_catalogue = todo
+let load_catalogue fName= 
+  let file = open_in fName in
+  let rec readCat list line = 
+    match String.split_on_char ':' line with
+    | [toy;weight] -> (if (toy <> "")
+                       then (if(is_int weight)
+                            then ((toy,(int_of_string weight))::list)
+                            else raise (Invalid_file_format fName))
+                       else raise (Invalid_file_format fName))
+    | _ -> raise (Invalid_file_format fName)
+  in
+  let rec read list = 
+    try
+    let line = input_line file in
+    let nList = readCat list line in read nList
+    with End_of_file -> list
+  in
+  try
+  List.rev(read [])
+  with -> e close_in file
 
 (* 9.3 - 4 *)
 let write_list = todo
