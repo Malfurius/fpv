@@ -10,6 +10,8 @@ let noteName = "santas_notes.txt"
 
 let debugString str = Printf.printf "%s" str
 
+let debugInt int = Printf.printf "%i" int
+
 let is_int s =
   try ignore (int_of_string s); true
   with _ -> false
@@ -125,6 +127,7 @@ let workNiceChild name toyCat =
   let rec constructList l wishL=
     match wishL with
     | (name, imp)::xs -> let weight = getWeight(name,toyCat) in 
+                      debugInt(weight);
                      if(weight>0)
                      then(constructList(name,imp,weight)::l xs)
                      else(l xs)
