@@ -114,9 +114,9 @@ let write_letter fName =
   Printf.fprintf file "Some harsh Words"; close_out file
 
 let rec getWeight toyName toyCat =
-   match toyCat with
+   (match toyCat with
    | (name,weight)::xs -> (if (name=toyName)then(weight)else(getWeight toyName xs))
-   | [] -> -1
+   | [] -> (-1))
 
 let workNiceChild name toyCat = 
   let wishList = read_wishlist name in
@@ -129,7 +129,7 @@ let workNiceChild name toyCat =
 
 
 (* 9.3 - 6 *)
-let run_santas_factory mWeight, selectionAlg = 
+let run_santas_factory mWeight selectionAlg = 
   let toyCat = load_catalogue "examples/toys_catalogue.txt" in
   let santaNotes = read_notes "examples/santa_notes.txt" in
   let rec evalNotes notes = match santaNotes with
