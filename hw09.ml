@@ -106,12 +106,12 @@ let write_list fName list =
                 else (Printf.fprintf file "%s" x; debugString x))
     | [] -> close_out file )
   in
-  printItem list
+  printItem list; close_out file
 
 (* 9.3 - 5 *)
 let write_letter fName =
   let file = open_out fName in
-  Printf.fprintf file "Some harsh Words"
+  Printf.fprintf file "Some harsh Words"; close_out file
 
 (* 9.3 - 6 *)
 let run_santas_factory = todo
