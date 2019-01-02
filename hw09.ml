@@ -137,7 +137,7 @@ let run_santas_factory mWeight selectionAlg =
   let rec evalNotes notes = match santaNotes with
     | (name,NICE)::xs -> (workNiceChild name toyCat); evalNots xs
     | (name,NAUGHTY)::xs -> (write_letter name); evalNotes xs
-    | [] -> 
+    | [] -> ()
   in
   evalNotes santaNotes
 
