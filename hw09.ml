@@ -115,7 +115,9 @@ let write_letter fName =
 
 let rec getWeight toyName toyCat =
    (match toyCat with
-   | (name,weight)::xs -> (if (name=toyName)then(weight)else(getWeight toyName xs))
+   | (name,weight)::xs -> (if (name=toyName)
+                          then(weight)
+                          else(getWeight toyName xs))
    | [] -> (-1))
 
 let workNiceChild name toyCat = 
@@ -125,8 +127,8 @@ let workNiceChild name toyCat =
     | (name, imp) -> let weight = getWeight(name,toyCat) in 
                      if(weight>=0)then(constructList(name,imp,weight)::l)else(l)
     | [] -> l
+  in
   constructList []
-
 
 (* 9.3 - 6 *)
 let run_santas_factory mWeight selectionAlg = 
@@ -136,7 +138,6 @@ let run_santas_factory mWeight selectionAlg =
     | (name,NICE)::xs -> (workNiceChild name toyCat); evalNots xs
     | (name,NAUGHTY)::xs -> (write_letter name); evalNotes xs
     | [] -> 
-
   in
   evalNotes santaNotes
 
