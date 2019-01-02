@@ -109,7 +109,9 @@ let write_list fName list =
   printItem list
 
 (* 9.3 - 5 *)
-let write_letter = todo
+let write_letter fName =
+  let file = open_out fName in
+  Printf.fprintf file "Some harsh Words";
 
 (* 9.3 - 6 *)
 let run_santas_factory = todo
