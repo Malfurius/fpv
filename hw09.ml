@@ -113,8 +113,33 @@ let write_letter fName =
   let file = open_out fName in
   Printf.fprintf file "Some harsh Words"; close_out file
 
+let rec getWeight toyName toyCat =
+   match toyCat with
+   | (name,weight)::xs -> (if (name=toyName)then(weight)else(getWeight toyName xs))
+   | [] -> -1
+
+let workNiceChild name toyCat = 
+  let wishList = read_wishlist name in
+  let rec constructList l =
+    match wishList with
+    | (name, imp) -> let weight = getWeight(name,toyCat) in 
+                     if(weight>=0)then(constructList(name,imp,weight)::l)else(l)
+    | [] -> l
+  constructList []
+
+
 (* 9.3 - 6 *)
-let run_santas_factory = todo
+let run_santas_factory mWeight, selectionAlg = 
+  let toyCat = load_catalogue "examples/toys_catalogue.txt" in
+  let santaNotes = read_notes "examples/santa_notes.txt" in
+  let rec evalNotes notes = match santaNotes with
+    | (name,NICE)::xs -> (workNiceChild name toyCat); evalNots xs
+    | (name,NAUGHTY)::xs -> (write_letter name); evalNotes xs
+    | [] -> 
+
+  in
+  evalNotes santaNotes
+
 
 (* 9.3 - 7 *)
 let knapsack = todo
