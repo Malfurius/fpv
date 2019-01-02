@@ -115,7 +115,7 @@ let write_letter fName =
 
 let rec getWeight toyName toyCat =
    (match toyCat with
-   | (name,weight)::xs -> debugString(weight);(if (name=toyName)
+   | (name,weight)::xs -> (if (name=toyName)
                           then(weight)
                           else(getWeight toyName xs))
    | [] -> (-1))
