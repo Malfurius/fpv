@@ -115,10 +115,10 @@ let write_letter fName =
 
 let rec getWeight toyName toyCat =
    (match toyCat with
-   | (name,weight)::xs -> (if (name=toyName)
-                          then(debugString(weight);weight)
+   | (name,weight)::xs -> debug(weight);(if (name=toyName)
+                          then(weight)
                           else(getWeight toyName xs))
-   | [] -> 0)
+   | [] -> (-1))
 
 let workNiceChild name toyCat = 
   let wishList = read_wishlist name in
