@@ -116,8 +116,8 @@ let write_letter fName =
   Printf.fprintf file "Some harsh Words"; close_out file
 
 let getWeight toyName toyCat =
-  let rec recWeight toyName toyCat =
-   (match toyCat with
+  let rec recWeight toyName sToyCat =
+   (match sToyCat with
    | (name,weight)::xs -> (if (name=toyName)
                           then(weight)
                           else(recWeight toyName xs))
