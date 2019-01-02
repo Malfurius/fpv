@@ -118,14 +118,14 @@ let rec getWeight toyName toyCat =
    | (name,weight)::xs -> (if (name=toyName)
                           then(debugString(weight);weight)
                           else(getWeight toyName xs))
-   | [] -> (-1))
+   | [] -> 0)
 
 let workNiceChild name toyCat = 
   let wishList = read_wishlist name in
   let rec constructList l wishL=
     match wishL with
     | (name, imp)::xs -> let weight = getWeight(name,toyCat) in 
-                     if(weight>=0)
+                     if(weight>0)
                      then(constructList(name,imp,weight)::l xs)
                      else(l xs)
     | [] -> l
