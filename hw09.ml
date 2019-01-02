@@ -115,12 +115,15 @@ let write_letter fName =
   let file = open_out fName in
   Printf.fprintf file "Some harsh Words"; close_out file
 
-let rec getWeight toyName toyCat =
+let getWeight toyName toyCat =
+  let rec recWeight toyName toyCat =
    (match toyCat with
    | (name,weight)::xs -> (if (name=toyName)
                           then(weight)
-                          else(getWeight toyName xs))
+                          else(recWeight toyName xs))
    | [] -> (-1))
+  in
+  recWeight toyName toyCat
 
 let workNiceChild name toyCat = 
   let wishList = read_wishlist name in
