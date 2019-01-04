@@ -25,6 +25,12 @@ let debugList list =
       | [] -> ""
   in
   printElement list
+
+  let debugPresentList list =
+    let rec printEle nList = 
+      match nList with
+      | (name,imp,weight)::xs -> debugString (name^","^imp^","^weight^"|");printEle xs
+      | [] -> ()
  
 (* 9.3 - 1 *)
 let read_notes fName = 
@@ -146,7 +152,9 @@ let run_santas_factory mWeight selectionAlg =
   let santaNotes = read_notes "examples/santas_notes.txt" in
   let rec evalNotes notes = match notes with
     | (name,Nice)::xs -> let childList = (workNiceChild name toyCat)
-                         in if (childList <> [] ) then (write_list (name^"presents.txt") (selectionAlg childList mWeight)) else ()
+                         in debugPresentList childList; if (childList <> [] )
+                                                        then (write_list (name^"presents.txt") (selectionAlg childList mWeight))
+                                                        else ()
                          ; evalNotes xs
     | (name,Naughty)::xs -> (write_letter (name^"_letter.txt") ); evalNotes xs
     | [] -> ()
