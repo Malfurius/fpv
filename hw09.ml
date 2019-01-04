@@ -222,8 +222,8 @@ let check_run_santas_factory () =
   let test_selection_alg wishes capacity =
     if capacity <> 13 then raise' (Failure "wrong capacity passed to selection_alg");
     (match List.find_opt (fun (t,_,_) -> t = "ocaml book") wishes with
-    | None -> raise' (Failure "wrong list passed to selection_alg")
-    | Some (_,_,w) -> if w <> 2 then raise' (Failure "wrong list passed to selection_alg"));
+    | None -> raise' (Failure "wrong list passed to selection_alg: EMPTY")
+    | Some (_,_,w) -> if w <> 2 then raise' (Failure "wrong list passed to selection_alg: UNSURE"));
     match List.sort (fun (_,i,_) (_,j,_) -> compare j i) wishes with
     | (w1,_,_)::(w2,_,_)::_ -> [w1;w2]
     | _ -> raise' (Failure "wrong list passed to selection_alg")
