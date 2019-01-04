@@ -146,7 +146,7 @@ let run_santas_factory mWeight selectionAlg =
   let santaNotes = read_notes "examples/santas_notes.txt" in
   let rec evalNotes notes = match notes with
     | (name,Nice)::xs -> let childList = (workNiceChild name toyCat)
-                         in write_list (name^"presents.txt") (selectionAlg childList mWeight)
+                         in if (childList <> [] ) then (write_list (name^"presents.txt") (selectionAlg childList mWeight)) else ()
                          ; evalNotes xs
     | (name,Naughty)::xs -> (write_letter (name^"_letter.txt") ); evalNotes xs
     | [] -> ()
