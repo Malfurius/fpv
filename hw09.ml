@@ -31,6 +31,8 @@ let debugList list =
       match nList with
       | (name,imp,weight)::xs -> debugString (name^","^imp^","^weight^"|");printEle xs
       | [] -> ()
+    in
+    printEle list
  
 (* 9.3 - 1 *)
 let read_notes fName = 
