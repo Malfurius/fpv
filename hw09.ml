@@ -10,7 +10,7 @@ let noteName = "santas_notes.txt"
 
 let debugString str = Printf.printf "%s" str
 
-let debugInt int = Printf.printf "%i" int
+let debugInt int = Printf.printf "%i," int
 
 let is_int s =
   try ignore (int_of_string s); true
@@ -29,7 +29,7 @@ let debugList list =
   let debugPresentList list =
     let rec printEle nList = 
       match nList with
-      | (name,imp,weight)::xs -> debugString (name^","^imp^","^weight^"|");printEle xs
+      | (name,imp,weight)::xs -> debugString (name^","); debugInt imp; debugInt weight debugString "|";printEle xs
       | [] -> ()
     in
     printEle list
