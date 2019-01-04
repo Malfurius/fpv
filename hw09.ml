@@ -108,7 +108,7 @@ let write_list fName list =
                 else (Printf.fprintf file "%s" x; debugString x))
     | [] -> close_out file )
   in
-  printItem list; close_out file
+  printItem list; close_out file;debugString "\n"
 
 (* 9.3 - 5 *)
 let write_letter fName =
