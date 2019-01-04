@@ -128,8 +128,8 @@ let getWeight toyName toyCat =
 
 let workNiceChild childName toyCat = 
   let wishList = read_wishlist ("examples/"^childName^"_wishlist.txt") in
+  debugString (childName^"\n");
   let rec constructList l wishL=
-    debugString childName;
     match wishL with
     | (name, imp)::xs -> let weight = getWeight name toyCat in 
                      if(weight>=0)
