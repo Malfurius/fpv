@@ -155,7 +155,7 @@ let run_santas_factory mWeight selectionAlg =
   let rec evalNotes notes = match notes with
     | (name,Nice)::xs -> let childList = (workNiceChild name toyCat)
                          in debugPresentList childList; if (childList <> [] )
-                                                        then (write_list (name^"presents.txt") (selectionAlg childList mWeight))
+                                                        then (write_list (name^"_presents.txt") (selectionAlg childList mWeight))
                                                         else ()
                          ; evalNotes xs
     | (name,Naughty)::xs -> (write_letter (name^"_letter.txt") ); evalNotes xs
