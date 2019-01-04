@@ -136,8 +136,7 @@ let getWeight toyName toyCat =
 
 let workNiceChild childName toyCat = 
   let wishList = read_wishlist (childName^"_wishlist.txt") in
-  debugString (childName^"\n");
-  let rec constructList l wishL=
+  let rec constructList l wishL =
     match wishL with
     | (name, imp)::xs -> let weight = getWeight name toyCat in 
                      if(weight>=0)
@@ -154,9 +153,9 @@ let run_santas_factory mWeight selectionAlg =
   let santaNotes = read_notes "santas_notes.txt" in
   let rec evalNotes notes = match notes with
     | (name,Nice)::xs -> let childList = (workNiceChild name toyCat)
-                         in debugPresentList childList; if (childList <> [] )
-                                                        then (write_list (name^"_presents.txt") (selectionAlg childList mWeight))
-                                                        else ()
+                         in if (childList <> [] )
+                            then (write_list (name^"_presents.txt") (selectionAlg childList mWeight))
+                            else ()
                          ; evalNotes xs
     | (name,Naughty)::xs -> (write_letter (name^"_letter.txt") ); evalNotes xs
     | [] -> ()
