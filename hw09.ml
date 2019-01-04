@@ -100,7 +100,7 @@ let load_catalogue fName=
 
 (* 9.3 - 4 *)
 let write_list fName list = 
-  let file = open_out "examples"^fName^".txt" in
+  let file = open_out ("examples"^fName^".txt") in
   let rec printItem nlist = 
     (match nlist with
     | x::xs -> (if (xs<>[]) 
@@ -112,7 +112,7 @@ let write_list fName list =
 
 (* 9.3 - 5 *)
 let write_letter fName =
-  let file = open_out "examples"^fName^".txt" in
+  let file = open_out ("examples"^fName^".txt") in
   Printf.fprintf file "Some harsh Words"; close_out file
 
 let rec recWeight toyName sToyCat =
