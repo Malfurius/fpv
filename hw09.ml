@@ -127,11 +127,10 @@ let getWeight toyName toyCat =
   recWeight toyName toyCat
 
 let workNiceChild childName toyCat = 
-  let wishList = read_wishlist childName in
+  let wishList = read_wishlist "examples"^childName^"_wishlist.txt" in
   let rec constructList l wishL=
     match wishL with
     | (name, imp)::xs -> let weight = getWeight name toyCat in 
-                    debugInt(weight);
                      if(weight>=0)
                      then(constructList ((name,imp,weight)::l) xs)
                      else(constructList l xs)
