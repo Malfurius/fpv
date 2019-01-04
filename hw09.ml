@@ -130,7 +130,7 @@ let workNiceChild childName toyCat =
   let wishList = read_wishlist childName in
   let rec constructList l wishL=
     match wishL with
-    | (name, imp)::xs -> let weight = getWeight(name,toyCat) in 
+    | (name, imp)::xs -> let weight = getWeight name toyCat in 
                     debugInt(weight);
                      if(weight>0)
                      then(constructList ((name,imp,weight)::l) xs)
