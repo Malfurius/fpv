@@ -146,7 +146,7 @@ let run_santas_factory mWeight selectionAlg =
   let santaNotes = read_notes "examples/santas_notes.txt" in
   let rec evalNotes notes = (debugString "evalNotes"); match notes with
     | (name,Nice)::xs -> (workNiceChild name toyCat); evalNotes xs
-    | (name,Naughty)::xs -> (write_letter ("examples/"^name^".txt") ); evalNotes xs
+    | (name,Naughty)::xs -> (write_letter ("examples/"^name^"_letter.txt") ); evalNotes xs
     | [] -> ()
   in
   evalNotes santaNotes
