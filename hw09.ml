@@ -29,7 +29,7 @@ let debugList list =
   let debugPresentList list =
     let rec printEle nList = 
       match nList with
-      | (name,imp,weight)::xs -> debugString (name^","); debugInt imp; debugInt weight debugString "|";printEle xs
+      | (name,imp,weight)::xs -> debugString (name^","); debugInt imp; debugInt weight; debugString "|";printEle xs
       | [] -> ()
     in
     printEle list
