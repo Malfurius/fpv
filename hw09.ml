@@ -126,14 +126,14 @@ let rec recWeight toyName sToyCat =
 let getWeight toyName toyCat =
   recWeight toyName toyCat
 
-let workNiceChild name toyCat = 
-  let wishList = read_wishlist name in
+let workNiceChild childName toyCat = 
+  let wishList = read_wishlist childName in
   let rec constructList l wishL=
     match wishL with
     | (name, imp)::xs -> let weight = getWeight(name,toyCat) in 
-                    debugInt(getWeight(name,toyCat));
+                    debugInt(weight);
                      if(weight>0)
-                     then(constructList(name,imp,weight)::l xs)
+                     then(constructList ((name,imp,weight)::l) xs)
                      else(l xs)
     | [] -> l
   in
