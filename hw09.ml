@@ -144,7 +144,7 @@ let workNiceChild childName toyCat =
 let run_santas_factory mWeight selectionAlg = 
   let toyCat = load_catalogue "examples/toys_catalogue.txt" in
   let santaNotes = read_notes "examples/santas_notes.txt" in
-  let rec evalNotes notes = match santaNotes with
+  let rec evalNotes notes = (debugString "evalNotes"); match santaNotes with
     | (name,Nice)::xs -> (workNiceChild name toyCat); evalNotes xs
     | (name,Naughty)::xs -> (write_letter ("examples/"^name^".txt") ); evalNotes xs
     | [] -> ()
