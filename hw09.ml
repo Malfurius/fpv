@@ -140,12 +140,15 @@ let workNiceChild childName toyCat =
   in
   constructList [] wishList
 
+
 (* 9.3 - 6 *)
 let run_santas_factory mWeight selectionAlg = 
   let toyCat = load_catalogue "examples/toys_catalogue.txt" in
   let santaNotes = read_notes "examples/santas_notes.txt" in
   let rec evalNotes notes = (debugString "evalNotes"); match notes with
-    | (name,Nice)::xs -> (workNiceChild name toyCat); evalNotes xs
+    | (name,Nice)::xs -> let childList = (workNiceChild name toyCat)
+                         in write_list (name^"presents.txt") (selectionAlg childList)
+                         ; evalNotes xs
     | (name,Naughty)::xs -> (write_letter (name^"_letter.txt") ); evalNotes xs
     | [] -> ()
   in
