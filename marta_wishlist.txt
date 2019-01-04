@@ -1,0 +1,8 @@
+ocaml book:8
+time machine:13
+unicorn:3
+shawl:5
+penguin doll:1
+ocaml book:7
+soccer shoes:1
+socks:3

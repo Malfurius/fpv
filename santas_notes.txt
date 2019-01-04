@@ -1,0 +1,5 @@
+tommy:nice
+bruno:naughty
+frida:nice
+caren:nice
+marta:naughty

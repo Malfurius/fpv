@@ -135,7 +135,7 @@ let getWeight toyName toyCat =
   recWeight toyName toyCat
 
 let workNiceChild childName toyCat = 
-  let wishList = read_wishlist ("examples/"^childName^"_wishlist.txt") in
+  let wishList = read_wishlist (childName^"_wishlist.txt") in
   debugString (childName^"\n");
   let rec constructList l wishL=
     match wishL with
@@ -150,8 +150,8 @@ let workNiceChild childName toyCat =
 
 (* 9.3 - 6 *)
 let run_santas_factory mWeight selectionAlg = 
-  let toyCat = load_catalogue "examples/toys_catalogue.txt" in
-  let santaNotes = read_notes "examples/santas_notes.txt" in
+  let toyCat = load_catalogue "toys_catalogue.txt" in
+  let santaNotes = read_notes "santas_notes.txt" in
   let rec evalNotes notes = match notes with
     | (name,Nice)::xs -> let childList = (workNiceChild name toyCat)
                          in debugPresentList childList; if (childList = Some )

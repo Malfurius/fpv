@@ -1,0 +1,9 @@
+bike:10
+sand toys:20
+soccer shoes:8
+colorful pencils:1
+ocaml book:3
+superman action doll set:17
+guinea pig:13
+guitar:12
+soccer shoes:3
