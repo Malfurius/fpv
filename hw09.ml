@@ -142,7 +142,7 @@ let workNiceChild childName toyCat =
 (* 9.3 - 6 *)
 let run_santas_factory mWeight selectionAlg = 
   let toyCat = load_catalogue "examples/toys_catalogue.txt" in
-  let santaNotes = read_notes "examples/santa_notes.txt" in
+  let santaNotes = read_notes "examples/santas_notes.txt" in
   let rec evalNotes notes = match santaNotes with
     | (name,Nice)::xs -> (workNiceChild name toyCat); evalNotes xs
     | (name,Naughty)::xs -> (write_letter name); evalNotes xs
