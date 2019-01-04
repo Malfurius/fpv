@@ -144,8 +144,8 @@ let run_santas_factory mWeight selectionAlg =
   let toyCat = load_catalogue "examples/toys_catalogue.txt" in
   let santaNotes = read_notes "examples/santa_notes.txt" in
   let rec evalNotes notes = match santaNotes with
-    | (name,NICE)::xs -> (workNiceChild name toyCat); evalNots xs
-    | (name,NAUGHTY)::xs -> (write_letter name); evalNotes xs
+    | (name,Nice)::xs -> (workNiceChild name toyCat); evalNots xs
+    | (name,Naughty)::xs -> (write_letter name); evalNotes xs
     | [] -> ()
   in
   evalNotes santaNotes
