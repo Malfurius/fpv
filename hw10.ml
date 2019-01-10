@@ -53,7 +53,7 @@ module type FiniteRing = sig
 end
 
 module BoolRing : FiniteRing with type t = bool = struct
-  let t = Bool
+  let t = bool
   let zero = false
   let one = true
   let compare a b = if(a=b)
