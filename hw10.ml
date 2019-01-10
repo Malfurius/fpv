@@ -90,7 +90,7 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   let add a b = (List.sort F.compare (recUnion a b))
   let mul a b = (recInter a b [])
   let compare a b = -1
-  let to_string a = let s = (setToString a F.to_string "") in Printf.sprintf "%s" ("{"^(String.sub s 0 ((String.length s)-1))); ("{"^(String.sub s 0 ((String.length s)-1)))
+  let to_string a = let s = (setToString a F.to_string "") in Printf.sprintf "%s" "test"; ("{"^(String.sub s 0 ((String.length s)-1)))
 end
 
 (*****************************************************************************)
