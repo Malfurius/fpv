@@ -78,6 +78,11 @@ end
       | x::xs -> if((List.mem x b))then (recInter xs b (x::l))else(recInter xs b l)
       | [] -> l
 
+  let rec setToString b f s = 
+    match b with
+    | x::xs -> let ns = s^(f x)^"," in setToString xs f ns
+    | [] -> s^"}"
+
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   type t = F.t list
   let zero = []
@@ -85,7 +90,7 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   let add a b = (List.sort F.compare (recUnion a b))
   let mul a b = (recInter a b [])
   let compare a b = -1
-  let to_string a = "a"
+  let to_string a = let s = (setToString a F.to_string "") in  "{"^(String.sub s 0 ((String.length s)-1))
 end
 
 (*****************************************************************************)
