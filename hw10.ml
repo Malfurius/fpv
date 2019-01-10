@@ -37,6 +37,16 @@ module IntRing : Ring with type t = int = struct
   let mul a b = a*b
 end
 
+module FloatRing : Ring with type t = float = struct
+  type t = float
+  let zero = 0.0
+  let one = 1.0
+  let compare a b = (a-.b)
+  let to_string = string_of_float
+  let add a b = a+.b
+  let mul a b = a*.b
+end
+
 (*****************************************************************************)
 (**************************** END OF HOMEWORK ********************************)
 (*****************************************************************************)
@@ -74,7 +84,7 @@ let tests =
    * tests for 10.2 (FloatRing) :
    * NOTE: Comment tests until you have completed your implementation of FloatRing
    *)
-  (*
+  
   let implementsRingSignature (module M : Ring) = true in
   [
   __LINE_OF__ (fun () -> implementsRingSignature (module FloatRing));
@@ -82,7 +92,7 @@ let tests =
   __LINE_OF__ (fun () -> FloatRing.add 10.0 FloatRing.zero = 10.0);
   __LINE_OF__ (fun () -> FloatRing.mul 10.0 FloatRing.one = 10.0);
   __LINE_OF__ (fun () -> FloatRing.to_string 10.0 = "10.");
-  ] @ *)
+  ] @
 
   (*****************************
    * tests for 10.2 (BoolRing) :
