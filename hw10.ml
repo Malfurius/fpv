@@ -60,7 +60,7 @@ module BoolRing : FiniteRing with type t = bool = struct
                     then 0
                     else (if(a=one)then 1 else (-1))
   let to_string = string_of_bool
-  let elems = {one;zero]
+  let elems = [one;zero]
 end
 
 (*****************************************************************************)
