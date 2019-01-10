@@ -74,8 +74,9 @@ end
       | [] -> l
 
   let rec listToString l f =
+    let module RING = f in
     match l with
-    | x::xs -> f.to_string xs
+    | x::xs -> RING.to_string x; listToString xs f
     | [] -> ()
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
