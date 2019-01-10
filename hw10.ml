@@ -73,9 +73,9 @@ end
       | x::xs -> if(List.mem x b)then (recUnion xs b (x::l))else(recUnion xs b l)
       | [] -> l
 
-  let rec listToString l F =
+  let rec listToString l f =
     match l with
-    | x::xs -> F.to_string xs
+    | x::xs -> f.to_string xs
     | [] -> ()
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
