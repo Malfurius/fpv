@@ -75,7 +75,7 @@ end
 
   let rec print a f =
     match a with
-      | x::xs -> f x;print xs f 
+      | x::xs -> x::print xs
       | [] -> ()
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
