@@ -66,6 +66,26 @@ module BoolRing : FiniteRing with type t = bool = struct
   let elems = [true;false]
 end
 
+let rec union a b l = 
+  match a with
+    | x::xs -> if(mem x b)then(union xs b (x::l))else(union xs b l)
+    | [] -> l
+
+let rec inter a b l =
+    match a with
+    | x::xs -> if(not (mem x b))then(union xs b (x::l))else(union xs b l)
+    | [] -> l
+
+module SetRing (fs: FiniteRing) : Set with type t = fs.t = struct
+  type t = fs.t
+  let zero = fs.zero
+  let one = fs.one
+  let add a b = union a b
+  let mul a b = (inter a b)::inter(b a)
+  let compare a b = -1
+  let to_string = fs.to_string
+end
+
 (*****************************************************************************)
 (**************************** END OF HOMEWORK ********************************)
 (*****************************************************************************)
@@ -132,7 +152,7 @@ let tests =
    * tests for 10.2 (SetRing) :
    * NOTE: Comment tests until you have completed your implementation of SetRing
    *)
-  (*
+  
   let module TestRing : FiniteRing with type t = char = struct
     let cfrom x = (int_of_char x) - (int_of_char 'a')
     let cto x = char_of_int (x mod 4 + int_of_char 'a')
@@ -157,7 +177,7 @@ let tests =
   __LINE_OF__ (fun () -> SR.mul ['a';'b'] ['c';'b'] |= ['b']);
   __LINE_OF__ (fun () -> SR.mul ['a';'b'] SR.one |= ['a';'b']);
   __LINE_OF__ (fun () -> check_string_representation (SR.to_string SR.one) ["'a'";"'b'";"'c'";"'d'"]);
-  ] @ *)
+  ] @ 
 
   (********************************
    * tests for 10.2 (DenseMatrix) :
