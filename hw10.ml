@@ -68,9 +68,14 @@ end
 
 
   
-  let rec recUnion a b l =
+  let rec recUnion a b l=
     match a with
       | x::xs -> if(List.mem x b)then (recUnion xs b (x::l))else(recUnion xs b l)
+      | [] -> l
+  
+  let rec recInter a b l=
+    match a with
+      | x::xs -> if( not (List.mem x b))then (recUnion xs b (x::l))else(recUnion xs b l)
       | [] -> l
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
@@ -78,7 +83,7 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   let zero = []
   let one = F.elems
   let add a b = (recUnion a b [])
-  let mul a b = b
+  let mul a b = (recInter a b [])
   let compare a b = -1
   let to_string a = "a"
 end
