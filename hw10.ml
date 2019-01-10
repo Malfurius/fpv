@@ -52,7 +52,7 @@ module type FiniteRing = sig
   val elems : t list
 end
 
-module BoolRing : FiniteRing with type t = Bool = struct
+module BoolRing : FiniteRing with type t = bool = struct
   let t = Bool
   let zero = false
   let one = true
