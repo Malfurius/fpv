@@ -75,7 +75,7 @@ end
   
   let rec recInter a b l=
     match a with
-      | x::xs -> if( not (List.mem x b))then (recInter xs b (x::l))else(recInter xs b l)
+      | x::xs -> if((List.mem x b))then (recInter xs b (x::l))else(recInter xs b l)
       | [] -> l
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
