@@ -70,7 +70,7 @@ end
   
   let rec recUnion a b l =
     match a with
-      | x::xs -> if(List.mem x b)then (recUnion xs b x::l)else(recUnion xs b l)
+      | x::xs -> if(List.mem x b)then (recUnion xs b (x::l))else(recUnion xs b l)
       | [] -> l
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t = struct
