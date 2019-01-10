@@ -27,6 +27,9 @@ end
 (*****************************************************************************)
 (**************************** HOMEWORK STARTS HERE ***************************)
 (*****************************************************************************)
+
+let debugString str = Printf.printf "%s" str
+
 module IntRing : Ring with type t = int = struct
   type t = int
   let zero = 0
@@ -90,7 +93,7 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   let add a b = (List.sort F.compare (recUnion a b))
   let mul a b = (recInter a b [])
   let compare a b = -1
-  let to_string a = let st = (setToString a F.to_string "") in Printf.sprintf "%s" "test"
+  let to_string a = let st = (setToString a F.to_string "") in debugString st
 end
 
 (*****************************************************************************)
