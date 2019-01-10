@@ -32,7 +32,7 @@ module IntRing : Ring with type t = int = struct
   let zero = 0
   let one = 1
   let compare a b = (a-b)
-  let to_string a = string_of_int
+  let to_string = string_of_int
   let add a b = a+b
   let mul a b = a*b
 end
