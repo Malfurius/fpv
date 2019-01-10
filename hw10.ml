@@ -41,7 +41,7 @@ module FloatRing : Ring with type t = float = struct
   type t = float
   let zero = 0.0
   let one = 1.0
-  let compare a b = if((a-.b) >. 0.0)then 1 else (if (a-.b<.0.0)then -1 else 0)
+  let compare a b = if((a-.b) > 0.0)then 1 else (if (a-.b<0.0)then -1 else 0)
   let to_string = string_of_float
   let add a b = a+.b
   let mul a b = a*.b
