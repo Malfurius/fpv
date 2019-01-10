@@ -49,7 +49,7 @@ end
 
 module type FiniteRing = sig
   include Ring
-  val elems : t list
+  val elems : 't list
 end
 
 module BoolRing : FiniteRing with type t = bool = struct
