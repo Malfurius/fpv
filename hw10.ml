@@ -74,13 +74,13 @@ end
       | [] -> l
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t = struct
+  type t = F.t
   let union a b = 
     if(b=F.zero)then a else(recUnion a b [])
   in
   let inter a b = 
     if(b=F.zero)then a else b
   in
-  type t = F.t
   let zero = F.zero
   let one = F.one
   let add a b = (union a b)
