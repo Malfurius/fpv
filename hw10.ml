@@ -47,6 +47,22 @@ module FloatRing : Ring with type t = float = struct
   let mul a b = a*.b
 end
 
+module type FiniteRing = sig
+  include Ring
+  val elems : list
+end
+
+module BoolRing : FiniteRing with type t = bool = struct
+  let t = bool
+  let zero = false
+  let one = true
+  let compare a b = if(a=b)
+                    then 0
+                    else (if(a=one)then 1 else (-1))
+  let to_string = string_of_bool
+  let elems = {one;zero]
+end
+
 (*****************************************************************************)
 (**************************** END OF HOMEWORK ********************************)
 (*****************************************************************************)
@@ -98,7 +114,7 @@ let tests =
    * tests for 10.2 (BoolRing) :
    * NOTE: Comment tests until you have completed your implementation of BoolRing
    *)
-  (*
+  
   let implementsFiniteRingSignature (module M : FiniteRing) = implementsRingSignature (module M) in
   [
   __LINE_OF__ (fun () -> implementsFiniteRingSignature (module BoolRing));
@@ -107,7 +123,7 @@ let tests =
   __LINE_OF__ (fun () -> BoolRing.mul true BoolRing.one = true && BoolRing.mul false BoolRing.one = false);
   __LINE_OF__ (fun () -> BoolRing.to_string true = "true");
   __LINE_OF__ (fun () -> BoolRing.elems |= [true;false]);
-  ] @ *)
+  ] @ 
 
   (****************************
    * tests for 10.2 (SetRing) :
