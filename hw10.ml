@@ -68,12 +68,12 @@ end
 
 let rec union a b l = 
   match a with
-    | x::xs -> if(mem x b)then(union xs b (x::l))else(union xs b l)
+    | x::xs -> if(List.mem x b)then(union xs b (x::l))else(union xs b l)
     | [] -> l
 
 let rec inter a b l =
     match a with
-    | x::xs -> if(not (mem x b))then(union xs b (x::l))else(union xs b l)
+    | x::xs -> if(not (List.mem x b))then(union xs b (x::l))else(union xs b l)
     | [] -> l
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t = struct
