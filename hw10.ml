@@ -76,7 +76,7 @@ let rec inter a b l =
     | x::xs -> if(not (mem x b))then(union xs b (x::l))else(union xs b l)
     | [] -> l
 
-module SetRing (fs: FiniteRing) : Set with type t = fs.t = struct
+module SetRing (fs : FiniteRing) : Ring with type t = fs.t = struct
   type t = fs.t
   let zero = fs.zero
   let one = fs.one
