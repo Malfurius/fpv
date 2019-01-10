@@ -80,7 +80,7 @@ end
 
   let rec setToString b f s = 
     match b with
-    | x::xs -> let ns = s^(f x)^"," in setToString xs f ns
+    | x::xs -> let ns = s^(f x)^";" in setToString xs f ns
     | [] -> s^"}"
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
