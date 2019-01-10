@@ -59,6 +59,9 @@ module BoolRing : FiniteRing with type t = bool = struct
   let compare a b = if(a=b)
                     then 0
                     else (if(a=one)then 1 else (-1))
+                    
+  let add a b = if(b=zero)then a else (not a)
+  let mul a b = if (b=one)then a else (not a)
   let to_string = string_of_bool
   let elems = [true;false]
 end
