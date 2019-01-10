@@ -81,7 +81,7 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t = struct
   let zero = F.zero
   let one = F.one
   let add a b = (union a b [])
-  let mul a b = ((inter a b [])::(inter b a []))
+  let mul a b = let l = (inter b a []) in ((inter a b [])::l)
   let compare a b = -1
   let to_string = F.to_string
 end
