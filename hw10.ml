@@ -75,8 +75,8 @@ end
 
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   type t = F.t list
-  let zero = F.zero
-  let one = F.one
+  let zero = F.zero::[]
+  let one = F.one::[]
   let add a b = (recUnion a b [])
   let mul a b = b
   let compare a b = -1
