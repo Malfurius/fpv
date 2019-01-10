@@ -66,18 +66,20 @@ module BoolRing : FiniteRing with type t = bool = struct
   let elems = [true;false]
 end
 
-  let union a b = 
-    if(b=F.zero)then a else(recUnion a b [])
+
   
   let rec recUnion a b l =
     match a with
       | x::xs -> if(List.mem x b)then (recUnion xs b x::l)else(recUnion xs b l)
       | [] -> l
 
+module SetRing (F : FiniteRing) : Ring with type t = F.t = struct
+  let union a b = 
+    if(b=F.zero)then a else(recUnion a b [])
+  in
   let inter a b = 
     if(b=F.zero)then a else b
-
-module SetRing (F : FiniteRing) : Ring with type t = F.t = struct
+  in
   type t = F.t
   let zero = F.zero
   let one = F.one
