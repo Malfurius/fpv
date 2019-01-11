@@ -103,6 +103,50 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   let to_string a = let st = "{"^(setToString a F.to_string "") in debugString st; st
 end
 
+let rec createRows m r v =
+  if(m>=0)
+  then (createRows (m-1) v::r v)
+  else r 
+
+
+let rec buildMatrix n m c v=
+  if(n>=0)
+  then(buildMatrix (n-1) m ((createRows m [] v)::c) v)
+  else c
+
+let rec fillIDColumn n m c neut =
+  if(m>=0)
+  then (if(n=m)
+        then (fillIDColumn n (m-1) neut::c neut)
+        else (fillIDColumn n (m-1) 0::c neut))
+  else c
+
+let rec buildIDMatrix n m c neut =
+  if(n>=0)
+  then (fillIDColumn n m c neut)
+  else c
+
+let rec buildRowMatrix l c =
+  match l with
+  | x::xs -> buildRowMatrix xs (x::c)
+  | [] -> c
+
+let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
+
+let find c v m = (List.iteri (fun i x -> if(i=c)then x))
+
+let isRow r c v m f = (List.iteri (fun i x -> if (i = r) then(f c v x) else()) m)
+
+module DenseMatrix (F : Ring) : Matrix with type t = F.t list list and type elem = F.t = struct
+  type t = F.t
+  type elem = F.t
+  let create n m = buildMatrix n m [] 0
+  let identity n = buildIDMatrix n n [] F.one
+  let from_rows l = buildRowMatrix l []
+  let set r c v m = isRow r c v m replace
+  let get r c m = isRow r c F.zero m 
+end
+
 (*****************************************************************************)
 (**************************** END OF HOMEWORK ********************************)
 (*****************************************************************************)
