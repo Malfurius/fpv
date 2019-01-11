@@ -88,7 +88,7 @@ end
 
   let rec recCompare a b c = 
     match a, b with
-    | x::xs,y:ys -> if(x=y)then(recCompare xs ys c)else(c x y)
+    | x::xs, y::ys -> if(x=y)then(recCompare xs ys c)else(c x y)
     | [], y::ys -> -1
     | x::xs, [] -> 1
     | [], [] -> 0
