@@ -138,7 +138,7 @@ let find c v m = (List.nth m c)
 let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 
 module DenseMatrix (F : Ring) : Matrix with type t = F.t list list and type elem = F.t = struct
-  type t = F.t
+  type t = F.t list list
   type elem = F.t
   let create n m = buildMatrix n m [] 0
   let identity n = buildIDMatrix n n [] 1
