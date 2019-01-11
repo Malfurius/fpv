@@ -105,7 +105,7 @@ end
 
 let rec createRows m r v =
   if(m>=0)
-  then (createRows (m-1) v::r v)
+  then (createRows (m-1) (v::r) v)
   else r 
 
 
@@ -117,8 +117,8 @@ let rec buildMatrix n m c v=
 let rec fillIDColumn n m c neut =
   if(m>=0)
   then (if(n=m)
-        then (fillIDColumn n (m-1) neut::c neut)
-        else (fillIDColumn n (m-1) 0::c neut))
+        then (fillIDColumn n (m-1) (neut::c) neut)
+        else (fillIDColumn n (m-1) (0::c) neut))
   else c
 
 let rec buildIDMatrix n m c neut =
@@ -133,7 +133,7 @@ let rec buildRowMatrix l c =
 
 let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
 
-let find c v m = (List.iteri (fun i x -> if(i=c)then x))
+let find c v m = (List.nth m c)
 
 let isRow r c v m f = (List.iteri (fun i x -> if (i = r) then(f c v x) else()) m)
 
@@ -145,6 +145,10 @@ module DenseMatrix (F : Ring) : Matrix with type t = F.t list list and type elem
   let from_rows l = buildRowMatrix l []
   let set r c v m = isRow r c v m replace
   let get r c m = isRow r c F.zero m 
+  let transpose m = m
+  let add a b = create 1 1
+  let mul a b = create 1 1
+  let to_string m = "a"
 end
 
 (*****************************************************************************)
@@ -245,7 +249,7 @@ let tests =
    * NOTE: Comment tests until you have completed your implementation of DenseMatrix
    * NOTE: from_rows and get have to be correct in order for these tests to work correctly!
    *)
-  (*
+  
   let module DM = DenseMatrix (IntRing) in
   let dm0 = DM.from_rows [[4;-2;1];[0;3;-1]] in
   let dm1 = DM.from_rows [[1;2];[-3;4];[3;-1]] in
@@ -260,7 +264,7 @@ let tests =
     __LINE_OF__ (fun () -> check_dense (DM.add dm0 dm0) [[8;-4;2];[0;6;-2]]);
     __LINE_OF__ (fun () -> check_dense (DM.mul dm0 dm1) [[13;-1];[-12;13]]);
     __LINE_OF__ (fun () -> (DM.to_string dm0) = "4 -2 1\n0 3 -1");
-  ] @ *)
+  ] @ 
 
   (*********************************
    * tests for 10.2 (SparseMatrix) :
