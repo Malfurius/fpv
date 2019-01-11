@@ -114,16 +114,16 @@ let rec buildMatrix n m c v=
   then(buildMatrix (n-1) m ((createRows m [] v)::c) v)
   else c
 
-let rec fillIDColumn n m c neut =
+let rec fillIDColumn n m c neut null=
   if(m>=0)
   then (if(n=m)
         then (fillIDColumn n (m-1) (neut::c) neut)
-        else (fillIDColumn n (m-1) (0::c) neut))
+        else (fillIDColumn n (m-1) (null::c) neut))
   else c
 
-let rec buildIDMatrix n m c neut =
+let rec buildIDMatrix n m c neut null =
   if(n>=0)
-  then (fillIDColumn n m c neut)
+  then (fillIDColumn n m c neut null)
   else c
 
 let rec buildRowMatrix l c =
@@ -140,8 +140,8 @@ let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m
 module DenseMatrix (F : Ring) : Matrix with type t = F.t list list and type elem = F.t = struct
   type t = F.t list list
   type elem = F.t
-  let create n m = buildMatrix n m [] 0
-  let identity n = buildIDMatrix n n [] 1
+  let create n m = buildMatrix n m [] F.zero
+  let identity n = buildIDMatrix n n [] F.one F.zero
   let from_rows l = buildRowMatrix l []
   let set r c v m = isRow r c v m replace
   let get r c m = isRow r c F.zero m 
