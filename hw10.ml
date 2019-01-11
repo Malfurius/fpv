@@ -123,7 +123,7 @@ let rec fillIDColumn n m c neut null=
 
 let rec buildIDMatrix n m c neut null =
   if(n>=0)
-  then (buildIDMatrix n-1 m (fillIDColumn n m c neut null) neut null)
+  then (buildIDMatrix (n-1) m (fillIDColumn n m c neut null) neut null)
   else c
 
 let rec buildRowMatrix l c =
