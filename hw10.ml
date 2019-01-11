@@ -149,7 +149,16 @@ let rec recMul r b elem_Idx column_Idx sum get add mul =
 
 let perRow r b zero get add mul = List.mapi (fun column_Idx x -> recMul r b 0 column_Idx zero get add mul) r
 
-let myTranspose oldMat row r get =  List.mapi (fun i x -> if(i>r)then(get i r oldMat)else(x)) row
+let do r c v nM set= set c r v nM
+
+let myTranspose m create set=
+  let rows = List.length m
+  in 
+  let columns = List.length (List.hd m)
+  in
+  let nMatrix = create columns rows
+  in
+  List.iteri (fun i x -> List.iteri (fun j y -> do j i y nMatrix) x) m;nMatrix
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
@@ -162,7 +171,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let from_rows l = List.rev (buildRowMatrix l [])
   let set r c v m = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m)
   let get r c m = find c (findRow r m 0)
-  let transpose m = let res = List.mapi (fun i x -> myTranspose m x i get) m in to_string res; res
+  let transpose m =let res =  myTranspose m in to_string res; res
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
   let mul a b = let res = List.mapi (fun i x -> perRow x b F.zero get F.add F.mul) a in to_string res; res
 end
