@@ -149,7 +149,7 @@ let perEle r c m g s =
 
 let rec transPerRow rM m n res g s= 
   match rM with
-  | x::xs -> transPerRow xs m (n+1) ((List.mapi (fun i e -> if(i>n)then(perEle n i m g s)else(e)) x)::res)
+  | x::xs -> transPerRow xs m (n+1) ((List.mapi (fun i e -> if(i>n)then(perEle n i m g s)else(e)) x)::res) g s
   | [] -> res
 
 
