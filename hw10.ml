@@ -117,8 +117,8 @@ let rec buildMatrix n m c v=
 let rec fillIDColumn n m c neut null=
   if(m>=0)
   then (if(n=m)
-        then (fillIDColumn n (m-1) (neut::c) neut)
-        else (fillIDColumn n (m-1) (null::c) neut))
+        then (fillIDColumn n (m-1) (neut::c) neut null)
+        else (fillIDColumn n (m-1) (null::c) neut null))
   else c
 
 let rec buildIDMatrix n m c neut null =
