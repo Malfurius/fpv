@@ -131,11 +131,11 @@ let rec buildRowMatrix l c =
   | x::xs -> buildRowMatrix xs (x::c)
   | [] -> c
 
-let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r);()
+let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r);
 
 let find c v m = (List.nth m c)
 
-let isRow r c v m f = (List.iteri (fun i x -> if (i = r) then(f c v x) else()) m)
+let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 
 module DenseMatrix (F : Ring) : Matrix with type t = F.t list list and type elem = F.t = struct
   type t = F.t
