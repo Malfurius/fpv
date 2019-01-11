@@ -158,7 +158,7 @@ let myTranspose m create set=
   in
   let nMatrix = create columns rows
   in
-  List.iteri (fun i x -> List.iteri (fun j y -> swap j i y nMatrix) x) m;nMatrix
+  List.iteri (fun i x -> List.iteri (fun j y -> swap j i y nMatrix set) x) m;nMatrix
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
