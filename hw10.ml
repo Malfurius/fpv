@@ -140,7 +140,7 @@ let printRow r m = (List.iter (fun x -> debugString (m x)) r)
 let rec findRow r m n  =
   match m with
   | x::xs -> if(n=r)then(x)else(findRow r xs (n+1))
-  | [] -> ()
+  | [] -> []
 
 
 
