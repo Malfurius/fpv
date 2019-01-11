@@ -149,7 +149,7 @@ let rec recMul r b elem_Idx column_Idx sum get add mul =
 
 let perRow r b zero get add mul = List.mapi (fun column_Idx x -> recMul r b 0 column_Idx zero get add mul) r
 
-let myTranspose oldMat row r get =  List.mapi (fun i x -> if(i>r)then(get r i oldMat)else(x)) row
+let myTranspose oldMat row r get =  List.mapi (fun i x -> if(i>r)then(get i r oldMat)else(x)) row
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
