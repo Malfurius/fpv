@@ -142,6 +142,15 @@ let rec findRow r m n  =
   | x::xs -> if(n=r)then(x)else(findRow r xs (n+1))
   | [] -> []
 
+let perEle r c m = 
+  let old = get r c m
+  in
+  set r c (get c r m) m;set c r old m
+
+let rec transPerRow rM m n res g s= 
+  match rM with
+  | x::xs -> transPerRow xs m (n+1) ((List.mapi (fun i e -> if(i>n)then(perEle n i m g s)else(e)) x)::res)
+  | [] -> res
 
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
@@ -155,7 +164,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let from_rows l = buildRowMatrix l []
   let set r c v m = let res = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m) in to_string res;res
   let get r c m = find c (findRow r m 0)
-  let transpose m = m
+  let transpose m = let res =  transPerRow m m 0 [] set get in to_string res;res
   let add a b = create 1 1
   let mul a b = create 1 1
 end
