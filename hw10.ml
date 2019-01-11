@@ -144,7 +144,7 @@ let rec findRow r m n  =
 
 let rec recMul r b elem_Idx column_Idx sum get add mul = 
   match r with 
-  | x::xs -> recMul xs b (elem_Idx+1) column_Idx (add sum (mul x (get elem_Idx column_Idx )) )
+  | x::xs -> recMul xs b (elem_Idx+1) column_Idx (add sum (mul x (get elem_Idx column_Idx ))) get add mul
   | [] -> sum
 
 let perRow r b zero get add mul = List.mapi (fun column_Idx x -> recMul r b 0 column_Idx zero get add mul) r
