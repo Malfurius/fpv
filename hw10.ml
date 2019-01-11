@@ -142,10 +142,10 @@ let rec findRow r m n  =
   | x::xs -> if(n=r)then(x)else(findRow r xs (n+1))
   | [] -> []
 
-let perEle r c m = 
-  let old = get r c m
+let perEle r c m g s = 
+  let old = g r c m
   in
-  set r c (get c r m) m;set c r old m
+  s r c (g c r m) m;s c r old m
 
 let rec transPerRow rM m n res g s= 
   match rM with
