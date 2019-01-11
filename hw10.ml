@@ -157,7 +157,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   type t = (F.t list list)
   type elem = F.t
   let to_string m = (List.iter (fun x -> (printRow x F.to_string);debugString "\n") m);"test"
-  let create n m = buildMatrix n m [] F.zero in List.rev res
+  let create n m = let res = buildMatrix n m [] F.zero in List.rev res
   let identity n = buildIDMatrix n n [] F.one F.zero
   let from_rows l = List.rev (buildRowMatrix l [])
   let set r c v m = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m)
