@@ -104,25 +104,25 @@ module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
 end
 
 let rec createRows m r v =
-  if(m>=0)
+  if(m>0)
   then (createRows (m-1) (v::r) v)
   else r 
 
 
 let rec buildMatrix n m c v=
-  if(n>=0)
+  if(n>0)
   then(buildMatrix (n-1) m ((createRows m [] v)::c) v)
   else c
 
 let rec fillIDColumn n m c neut null=
-  if(m>=0)
+  if(m>0)
   then (if(n=m)
         then (fillIDColumn n (m-1) (neut::c) neut null)
         else (fillIDColumn n (m-1) (null::c) neut null))
   else c
 
 let rec buildIDMatrix n m c neut null =
-  if(n>=0)
+  if(n>0)
   then (buildIDMatrix (n-1) m ((fillIDColumn n m [] neut null)::c) neut null)
   else c
 
