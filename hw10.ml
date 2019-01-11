@@ -142,10 +142,12 @@ let rec findRow r m n  =
   | x::xs -> if(n=r)then(x)else(findRow r xs (n+1))
   | [] -> []
 
-let rec recMul i n nl l res get b null add mul =
-  match nl with
-  | x::xs -> recMul i (n+1) xs l b (let sum = null in List.iteri (fun j y -> sum := (add sum (mul y (get j i b) )) ) l;sum )::res get b
-  | [] -> res
+let rec recMul r b elem_Idx column_Idx sum get add mul = 
+  match r with 
+  | x::xs -> recMul xs b (elem_Idx+1) column_Idx (add sum (mul x (get elem_Idx column_Idx )) )
+  | [] -> sum
+
+let perRow r b zero get add mul = List.mapi (fun column_Idx x -> recMul r b 0 column_Idx zero get add mul) r
 
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
@@ -161,7 +163,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let get r c m = find c (findRow r m 0)
   let transpose m = m
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
-  let mul a b = List.mapi (fun i x -> recMul i 0 x x b [] get b F.zero F.add F.mul) a
+  let mul a b = List.mapi (fun i x -> perRow x b F.zero F.get F.add F.mul) a
 end
 
 (*****************************************************************************)
