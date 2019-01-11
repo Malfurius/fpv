@@ -86,13 +86,20 @@ end
     | x::xs -> let ns = s^(f x)^";" in setToString xs f ns
     | [] -> s^"}"
 
+  let rec recCompare a b c = 
+    match a b with
+    | x::xs,y:ys -> if(x=y)then(recCompare xs ys c)else(c x y)
+    | [], y::ys -> -1
+    | x::xs, [] -> 1
+    | [], [] -> 0
+
 module SetRing (F : FiniteRing) : Ring with type t = F.t list = struct
   type t = F.t list
   let zero = []
   let one = F.elems
   let add a b = (List.sort F.compare (recUnion a b))
   let mul a b = (recInter a b [])
-  let compare a b = -1
+  let compare a b = let comp = F.compare in recCompare (List.sort comp a) (List.sort comp b) comp
   let to_string a = let st = (setToString a F.to_string "") in debugString st; st
 end
 
