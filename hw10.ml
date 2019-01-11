@@ -144,7 +144,7 @@ let rec findRow r m n  =
 
 let rec recMul i n nl l res get b =
   match nl with
-  | x::xs -> recMul i (n+1) xs l b (let sum = 0 in List.iteri (fun j y -> sum = sum+(y*(get j i b) ) ) l )::res get b
+  | x::xs -> recMul i (n+1) xs l b (let sum = 0 in List.iteri (fun j y -> sum = sum+(y*(get j i b) ) ) l;sum )::res get b
   | [] -> res
 
 
