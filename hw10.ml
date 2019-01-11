@@ -142,20 +142,6 @@ let rec findRow r m n  =
   | x::xs -> if(n=r)then(x)else(findRow r xs (n+1))
   | [] -> []
 
-let perEle r c m g s = 
-  let old = g r c m
-  in
-  let nM = s r c (g c r m) m in s c r old nM;nM
-
-let rec transPerRow rM m n res g s= 
-  match rM with
-  | x::xs -> transPerRow xs m (n+1) transPerEle::res g s
-  | [] -> res
-
-let rec transPerEle rM m n res g s =
-  match rM with
-  | x::xs -> transPerEle 
-
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
