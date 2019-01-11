@@ -135,7 +135,7 @@ let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
 
 let find c m = (List.nth m c)
 
-let printRow r m = (List.iter (fun x -> debugString (m x)) r)
+let printRow r m = (List.iter (fun x -> debugString (m x)^" ") r)
 
 let rec findRow r m n  =
   match m with
