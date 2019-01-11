@@ -131,7 +131,7 @@ let rec buildRowMatrix l c =
   | x::xs -> buildRowMatrix xs (x::c)
   | [] -> c
 
-let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
+let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r);()
 
 let find c v m = (List.nth m c)
 
