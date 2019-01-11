@@ -133,7 +133,7 @@ let rec buildRowMatrix l c =
 
 let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
 
-let find c v m = (List.nth m c)
+let find c m = (List.nth m c)
 
 let printRow r m = (List.iter (fun x -> debugString (m x)) r)
 
@@ -148,7 +148,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let identity n = let res = buildIDMatrix n n [] F.one F.zero in to_string res;res
   let from_rows l = buildRowMatrix l []
   let set r c v m = let res = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m) in to_string res;res
-  let get r c m = F.one
+  let get r c m = (List.iteri (fun i x -> if(i=r)then(find c m)) m)
   let transpose m = m
   let add a b = create 1 1
   let mul a b = create 1 1
