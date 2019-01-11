@@ -135,16 +135,16 @@ let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
 
 let find c v m = (List.nth m c)
 
-let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
-
-module DenseMatrix (F : Ring) : Matrix with type t = F.t list list and type elem = F.t = struct
-  type t = F.t list list
+(*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
+*)
+module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type elem = F.t = struct
+  type t = (F.t list list)
   type elem = F.t
   let create n m = buildMatrix n m [] F.zero
   let identity n = buildIDMatrix n n [] F.one F.zero
   let from_rows l = buildRowMatrix l []
-  let set r c v m = isRow r c v m replace
-  let get r c m = isRow r c F.zero m 
+  let set r c v m = m
+  let get r c m = F.one
   let transpose m = m
   let add a b = create 1 1
   let mul a b = create 1 1
