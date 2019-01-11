@@ -143,7 +143,8 @@ let printRow r m = (List.iter (fun x -> debugString (m x)) r)
 module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type elem = F.t = struct
   type t = (F.t list list)
   type elem = F.t
-  let create n m = let res = buildMatrix n m [] F.zero in DenseMatrix.to_string res;res
+  let to_string m = (List.iter (fun x -> (printRow x F.to_string);debugString "\n") m)
+  let create n m = let res = buildMatrix n m [] F.zero in to_string res;res
   let identity n = buildIDMatrix n n [] F.one F.zero
   let from_rows l = buildRowMatrix l []
   let set r c v m = m
@@ -151,7 +152,6 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let transpose m = m
   let add a b = create 1 1
   let mul a b = create 1 1
-  let to_string m = (List.iter (fun x -> (printRow x F.to_string);debugString "\n") m)
 end
 
 (*****************************************************************************)
