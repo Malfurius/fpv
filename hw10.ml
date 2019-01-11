@@ -164,7 +164,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let from_rows l = buildRowMatrix l []
   let set r c v m = let res = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m) in to_string res;res
   let get r c m = find c (findRow r m 0)
-  let transpose m = let res =  transPerRow m m 0 [] set get in to_string res;res
+  let transpose m = let res =  (transPerRow m m 0 [] get set) in to_string res;res
   let add a b = create 1 1
   let mul a b = create 1 1
 end
