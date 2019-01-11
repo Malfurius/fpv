@@ -161,7 +161,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let get r c m = find c (findRow r m 0)
   let transpose m = m
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
-  let mul a b = List.mapi (fun i x -> recMul i 0 x x b [] get b F.zero, F.add, F.mul) a
+  let mul a b = List.mapi (fun i x -> recMul i 0 x x b [] get b F.zero F.add F.mul) a
 end
 
 (*****************************************************************************)
