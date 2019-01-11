@@ -111,7 +111,7 @@ let rec createRows m r v =
 
 let rec buildMatrix n m c v=
   if(n>=0)
-  then(buildMatrix (n-1) m ((createRows m [] v)::c) v)
+  then(buildMatrix (n-1) m (c@(createRows m [] v)) v)
   else c
 
 let rec fillIDColumn n m c neut null=
@@ -123,12 +123,12 @@ let rec fillIDColumn n m c neut null=
 
 let rec buildIDMatrix n m c neut null =
   if(n>=0)
-  then (buildIDMatrix (n-1) m ((fillIDColumn n m c neut null)::c) neut null)
+  then (buildIDMatrix (n-1) m (c@(fillIDColumn n m c neut null)) neut null)
   else c
 
 let rec buildRowMatrix l c =
   match l with
-  | x::xs -> buildRowMatrix xs (x::c)
+  | x::xs -> buildRowMatrix xs (c@x)
   | [] -> c
 
 let replace c v r = (List.mapi (fun i x -> if(i=c)then v else x) r)
