@@ -35,7 +35,7 @@ module IntRing : Ring with type t = int = struct
   let zero = 0
   let one = 1
   let compare a b = (a-b)
-  let to_string = string_of_int
+  let to_string a = string_of_int a
   let add a b = a+b
   let mul a b = a*b
 end
@@ -45,7 +45,7 @@ module FloatRing : Ring with type t = float = struct
   let zero = 0.0
   let one = 1.0
   let compare a b = if((a-.b) > 0.0)then 1 else (if (a-.b<0.0)then -1 else 0)
-  let to_string = string_of_float
+  let to_string a = string_of_float a
   let add a b = a+.b
   let mul a b = a*.b
 end
@@ -173,6 +173,7 @@ let myTranspose m create set=
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
+
 module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type elem = F.t = struct
   type t = (F.t list list)
   type elem = F.t
@@ -190,6 +191,20 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
   let mul a b = let res = List.mapi (fun i x -> perRow x b F.zero get F.add F.mul) a in to_string res; res
 end
+
+
+
+(*
+module SparseMatrix (F:Ring) : Matrix with type t = (int*int*(elem list list)) and type elem = (int*int*F.t) = struct
+  type t = (int*int*(elem list list))
+  type elem = (int*int*F.t)
+  let empty_row m = List.init m []
+  in
+  let create n m = (n,m, (List.init n (empty_row m)))
+  let id_row n m = List.init m (fun i -> if(n=i)then(n,m,F.one)else())
+  let identity = (n,m, (List.init n (fun i -> id_row i m)))
+end
+*)
 
 (*****************************************************************************)
 (**************************** END OF HOMEWORK ********************************)
