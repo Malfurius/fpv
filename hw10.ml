@@ -333,7 +333,7 @@ let tests =
    * NOTE: Comment tests until you have completed your implementation of DenseMatrix
    * NOTE: from_rows and get have to be correct in order for these tests to work correctly!
    *)
-  
+  (*
   let module DM = DenseMatrix (IntRing) in
   let dm0 = DM.from_rows [[4;-2;1];[0;3;-1]] in
   let dm1 = DM.from_rows [[1;2];[-3;4];[3;-1]] in
@@ -349,13 +349,14 @@ let tests =
     __LINE_OF__ (fun () -> check_dense (DM.mul dm0 dm1) [[13;-1];[-12;13]]);
     __LINE_OF__ (fun () -> (DM.to_string dm0) = "4 -2 1\n0 3 -1");
   ] @ 
+  *)
 
   (*********************************
    * tests for 10.2 (SparseMatrix) :
    * NOTE: Comment tests until you have completed your implementation of SparseMatrix
    * NOTE: from_rows and get have to be correct in order for these tests to work correctly!
    *)
-  (*
+  
   let module SM = SparseMatrix (IntRing) in
   let sm0 = SM.from_rows [[4;-2;1];[0;3;-1]] in
   let sm1 = SM.from_rows [[1;2];[-3;4];[3;-1]] in
@@ -370,7 +371,7 @@ let tests =
     __LINE_OF__ (fun () -> check_sparse (SM.add sm0 sm0) [[8;-4;2];[0;6;-2]]);
     __LINE_OF__ (fun () -> check_sparse (SM.mul sm0 sm1) [[13;-1];[-12;13]]);
     __LINE_OF__ (fun () -> (SM.to_string sm0) = "4 -2 1\n0 3 -1");
-  ] @ *)
+  ] @ 
   []
 
 
