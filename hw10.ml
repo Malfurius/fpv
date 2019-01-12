@@ -184,7 +184,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let get r c m = find c (findRow r m 0)
   let transpose m = let r = List.length m
                      in 
-                     let c = List.length List.hd m 
+                     let c = List.length (List.hd m) 
                      in
                     let res = buildTransposedMatrix c r [] get m in to_string res;res
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
