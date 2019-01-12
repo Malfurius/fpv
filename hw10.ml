@@ -231,7 +231,7 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
   *)
   let add a b = a
   let mul a b = a
-  let to_string = ""
+  let to_string a = ""
 end
 
 
