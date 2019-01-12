@@ -173,7 +173,7 @@ let myTranspose m create set=
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
-
+(*
 module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type elem = F.t = struct
   type t = (F.t list list)
   type elem = F.t
@@ -191,10 +191,11 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
   let mul a b = let res = List.mapi (fun i x -> perRow x b F.zero get F.add F.mul) a in to_string res; res
 end
+*)
 
 
 
-(*
+
 module SparseMatrix (F:Ring) : Matrix with type t = (int*int*(elem list list)) and type elem = (int*int*F.t) = struct
   type t = (int*int*(elem list list))
   type elem = (int*int*F.t)
@@ -203,8 +204,14 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*(elem list list)) a
   let create n m = (n,m, (List.init n (empty_row m)))
   let id_row n m = List.init m (fun i -> if(n=i)then(n,m,F.one)else())
   let identity = (n,m, (List.init n (fun i -> id_row i m)))
+  let from_row m = (1,1,m)
+  let set n m v mat = mat
+  let get n m mat = F.zero
+  let transpose m = m
+  let add a b = a
+  let mul a b = a
 end
-*)
+
 
 (*****************************************************************************)
 (**************************** END OF HOMEWORK ********************************)
