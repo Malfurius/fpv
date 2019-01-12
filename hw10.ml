@@ -160,6 +160,7 @@ let myTranspose m create set=
   in
   List.iteri (fun i x -> List.iteri (fun j y -> swap j i y nMatrix set) x) m;nMatrix
 
+let transpose_row c m = List.rev (List.rev_map2 (fun a b-> a :: b) c m)
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
 module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type elem = F.t = struct
@@ -171,7 +172,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let from_rows l = l
   let set r c v m = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m)
   let get r c m = find c (findRow r m 0)
-  let transpose m = let res = List.rev_map(fun a -> List.rev a) m in to_string res;res
+  let transpose m = let res = List.rev (List.rev_map2 (fun a acc-> transpose_row a acc) m []) in to_string res;res
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
   let mul a b = let res = List.mapi (fun i x -> perRow x b F.zero get F.add F.mul) a in to_string res; res
 end
