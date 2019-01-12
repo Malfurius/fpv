@@ -214,7 +214,7 @@ let rec addRow rIdx m r a b g add=
 module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (int*int*F.t) = struct
   type t = (int*int*((int*int*F.t) list list))
   type elem = F.t
-  let create n m = (n,m, (List.init n []))
+  let create n m = (n,m, (List.init n (fun i -> []))
   let id_row n m = List.init m (fun i -> if(n=i)then(n,m,F.one)else())
   let identity = (n,m, (List.init n (fun i -> id_row i m)))
   let from_row m = (List.length m,List.length (List.hd m), List.mapi (fun i r -> List.filter (fun (x,y,v) -> if(v<>F.zero)
