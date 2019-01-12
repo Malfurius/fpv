@@ -195,13 +195,13 @@ end
 
 let empty_row m = (List.init m (fun i -> []))
 
-let find rIdx cIdx row res = match row with
+let findSparse rIdx cIdx row res = match row with
   | (r,c,v)::xs ->if((r=rIdx) && (c=cIdx))
-                    then (find rIdx cIdx [] true)
-                    else (find rIdx cIdx row res)
+                    then (findSparse rIdx cIdx [] true)
+                    else (findSparse rIdx cIdx row res)
   | [] -> res
 
-let setRow rIdx cIdx row value= if(find rIdx cIdx row false)
+let setRow rIdx cIdx row value= if(findSparse rIdx cIdx row false)
                            then (rIdx,cIdx,value)::(List.filter (fun (x,y,v) -> if(rIdx=x&&cIdx=y)then(false)else(true)) row)
                            else (rIdx,cIdx,value)::row
 
