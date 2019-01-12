@@ -216,7 +216,7 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
   type elem = F.t
   let create n m = (n,m, (List.init n (fun i -> [])))
   let id_row n m = List.filter (fun (a,b,value) -> (value<>F.zero)) (List.init m (fun i -> if(n=i)then(n,m,F.one)else(n,m,F.zero)))
-  let identity = (n,m, (List.init n (fun i -> id_row i m)))
+  let identity n m = (n,m, (List.init n (fun i -> id_row i m)))
   let from_row m = (List.length m,List.length (List.hd m), List.mapi (fun i r -> List.filter (fun (x,y,v) -> if(v<>F.zero)
 then(true)else(false)) (List.mapi (fun j e -> (i,j,e)) r)) m)
   let set n m v (r,c,mat) = (r,c, List.mapi (fun i x-> if(n=i)then setRow n m x v else x) mat)
