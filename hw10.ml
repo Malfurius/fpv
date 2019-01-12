@@ -196,7 +196,7 @@ end
   let empty_row m = (List.init m (fun i -> []))
 
 
-module SparseMatrix (F:Ring) : Matrix with type t = (int*int*(elem list list)) and type elem = (int*int*F.t) = struct
+module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (int*int*F.t) = struct
   type t = (int*int*(elem list list))
   type elem = (int*int*F.t)
   let create n m = (n,m, (List.init n (empty_row m)))
