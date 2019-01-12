@@ -205,9 +205,9 @@ let setRow rIdx cIdx row value= if(findSparse rIdx cIdx row false)
                            else (rIdx,cIdx,value)::row
 
 
-let rec addRow rIdx m r a b g add= 
+let rec addRow rIdx m r a b g add zero= 
   if(m>0)
-  then let sum = (add (g rIdx m a) (g rIdx m b)) in if(sum>0) then (addRow rIdx (m-1) ((rIdx,m,sum)::r) a b g add)else(addRow rIdx (m-1) r a b g add)
+  then let sum = (add (g rIdx m a) (g rIdx m b)) in if(sum>zero) then (addRow rIdx (m-1) ((rIdx,m,sum)::r) a b g add zero)else(addRow rIdx (m-1) r a b g add zero)
   else r
 
 
@@ -226,7 +226,7 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
   (*
   let transpose (n,m,mat) = List.map (fun r -> List.mapi (fun (x,y,v) -> (y,x,v)) r) mat *)
   let transpose m = m
-  let add (n,m,a) (r,c,b) = List.mapi (fun i r ->  (addRow i m r a b get F.add)) (create n m)
+  let add (n,m,a) (r,c,b) = List.mapi (fun i r ->  (addRow i m r a b get F.add F.zero)) (create n m)
   let mul a b = a
   let to_string = ""
 end
