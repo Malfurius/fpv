@@ -113,6 +113,7 @@ let rec buildMatrix n m c v=
   if(n>0)
   then(buildMatrix (n-1) m ((createRows m [] v)::c) v)
   else c
+
 let rec createTransposedRow n m r g b =
   if(m>0)
   then (createTransposedRow n (m-1) (g m n b) g b)
@@ -120,7 +121,7 @@ let rec createTransposedRow n m r g b =
 
 let rec buildTransposedMatrix n m c g b =
   if(n>0)
-  then buildTransposedMatrix (n-1) m ((createTransposedRow n m [] g b)::c) g b
+  then (buildTransposedMatrix (n-1) m ((createTransposedRow n m [] g b)::c) g b)
   else c
 
 let rec fillIDColumn n m c neut null=
@@ -185,7 +186,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
                     in 
                     let c = List.length (List.hd m) 
                     in
-                    let res = buildMatrix c r [] F.zero in to_string res;res
+                    let res = buildTransposedMatrix c r [] get m in to_string res;res
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
   let mul a b = let res = List.mapi (fun i x -> perRow x b F.zero get F.add F.mul) a in to_string res; res
 end
