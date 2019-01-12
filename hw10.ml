@@ -193,14 +193,12 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
 end
 *)
 
-
+  let empty_row m = (List.init m [])
 
 
 module SparseMatrix (F:Ring) : Matrix with type t = (int*int*(elem list list)) and type elem = (int*int*F.t) = struct
   type t = (int*int*(elem list list))
   type elem = (int*int*F.t)
-  let empty_row m = List.init m []
-  in
   let create n m = (n,m, (List.init n (empty_row m)))
   let id_row n m = List.init m (fun i -> if(n=i)then(n,m,F.one)else())
   let identity = (n,m, (List.init n (fun i -> id_row i m)))
