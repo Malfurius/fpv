@@ -181,7 +181,7 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let identity n = buildIDMatrix n n [] F.one F.zero
   let from_rows l = l
   let set r c v m = (List.mapi (fun i x -> if(i=r)then(replace c v x)else(x)) m)
-  let get r c m = find c (findRow r m 0)
+  let get r c m = List.nth (List.nth m r) c
   let transpose m = let r = List.length m
                     in 
                     let c = List.length (List.hd m) 
