@@ -193,7 +193,6 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
 end
 *)
 
-let empty_row m = (List.init m (fun i -> []))
 
 let rec findSparse rIdx cIdx row res = match row with
   | (r,c,v)::xs ->if((r=rIdx) && (c=cIdx))
@@ -215,7 +214,7 @@ let rec addRow rIdx m r a b g add=
 module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (int*int*F.t) = struct
   type t = (int*int*((int*int*F.t) list list))
   type elem = F.t
-  let create n m = (n,m, (List.init n (empty_row m)))
+  let create n m = (n,m, (List.init n []))
   let id_row n m = List.init m (fun i -> if(n=i)then(n,m,F.one)else())
   let identity = (n,m, (List.init n (fun i -> id_row i m)))
   let from_row m = (List.length m,List.length (List.hd m), List.mapi (fun i r -> List.filter (fun (x,y,v) -> if(v<>F.zero)
