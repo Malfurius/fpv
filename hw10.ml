@@ -116,7 +116,7 @@ let rec buildMatrix n m c v=
 let rec createTransposedRow n m r g b =
   if(m>0)
   then (createTransposedRow n (m-1) (g m n b) g b)
-  else c
+  else r
 
 let rec buildTransposedMatrix n m c g b =
   if(n>0)
