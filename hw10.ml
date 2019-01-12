@@ -211,7 +211,7 @@ let rec addRow rIdx m r a b g add zero=
   else r
 
 
-module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (int*int*F.t) = struct
+module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (F.t) = struct
   type t = (int*int*((int*int*F.t) list list))
   type elem = F.t
   let create n m = (n,m, (List.init n (fun i -> [])))
