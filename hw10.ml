@@ -195,7 +195,7 @@ end
 
 let empty_row m = (List.init m (fun i -> []))
 
-let findSparse rIdx cIdx row res = match row with
+let rec findSparse rIdx cIdx row res = match row with
   | (r,c,v)::xs ->if((r=rIdx) && (c=cIdx))
                     then (findSparse rIdx cIdx [] true)
                     else (findSparse rIdx cIdx row res)
@@ -206,7 +206,7 @@ let setRow rIdx cIdx row value= if(findSparse rIdx cIdx row false)
                            else (rIdx,cIdx,value)::row
 
 
-let addRow rIdx m r a b g add= 
+let rec addRow rIdx m r a b g add= 
   if(m>0)
   then let sum = (add (g rIdx m a) (g rIdx m b)) in if(sum>0) then (addRow rIdx (m-1) (rIdx,m,sum)::r a b g add)else(addRow rIdx (m-1) r a b g add)
   else r
