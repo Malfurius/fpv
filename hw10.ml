@@ -196,7 +196,7 @@ end
 let empty_row m = (List.init m (fun i -> []))
 
 let find rIdx cIdx row res = match row with
-  | (r,c,val)::xs -> if(r=rIdx && c=cIdx)then (find 0 0 [] true)else(find 0 0  res)
+  | (r,c,val)::xs -> if((r=rIdx) && (c=cIdx))then (find 0 0 [] true)else (find 0 0  res)
   | [] ->
 
 let setRow rIdx cIdx row value= if(find rIdx cIdx row false)
