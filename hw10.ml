@@ -222,7 +222,10 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
   let get n m mat = match (List.filter (fun (x,y,v) -> ((n=x) && (m=y))) (List.nth mat n)) with
     | (a,b,value)::xs -> value
     | [] -> 0
-  let transpose (n,m,mat) = List.map (fun r -> List.mapi (fun (x,y,v) -> (y,x,v)) r) mat
+  
+  (*
+  let transpose (n,m,mat) = List.map (fun r -> List.mapi (fun (x,y,v) -> (y,x,v)) r) mat *)
+  let transpose m = m
   let add a b = let n = List.length a in let m = (List.length List.hd a) in  List.mapi (fun i r ->  (addRow i m r a b get F.add) ) (create n m)
   let mul a b = a
   let to_string = ""
