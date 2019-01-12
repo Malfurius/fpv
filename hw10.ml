@@ -173,7 +173,7 @@ let myTranspose m create set=
 
 (*let isRow r c v m f = (List.mapi (fun i x -> if (i = r) then(f c v x) else(x)) m)
 *)
-
+(*)
 module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type elem = F.t = struct
   type t = (F.t list list)
   type elem = F.t
@@ -191,22 +191,39 @@ module DenseMatrix (F : Ring) : Matrix with type t = (F.t list list) and type el
   let add a b = let res =  List.mapi (fun i x -> (List.mapi (fun j y -> (F.add y (get i j b) )) x)) a in to_string res; res
   let mul a b = let res = List.mapi (fun i x -> perRow x b F.zero get F.add F.mul) a in to_string res; res
 end
+*)
+
+let empty_row m = (List.init m (fun i -> []))
+
+let find rIdx cIdx row res = match row with
+  | (r,c,val)::xs -> if(r=rIdx && c=cIdx)then (find 0 0 [] true)else(find 0 0  res)
+  | [] ->
+
+let setRow rIdx cIdx row value= if(find rIdx cIdx row false)
+                           then (rIdx,cIdx,value)::(List.filter (fun (x,y,v) -> if(rIdx=x&&cIdx=y)then(false)else(true)) row)
+                           else (rIdx,cIdx,value)::row
 
 
-  let empty_row m = (List.init m (fun i -> []))
+let addRow rIdx m r a b g add= 
+  if(m>0)
+  then let sum = (add (g rIdx m a) (g rIdx m b)) in if(sum>0) then (addRow rIdx (m-1) (rIdx,m,sum)::r a b g add)else(addRow rIdx (m-1) r a b g add)
+  else r
 
 
 module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (int*int*F.t) = struct
-  type t = (int*int*(elem list list))
-  type elem = (int*int*F.t)
+  type t = (int*int*((int*int*F.t) list list))
+  type elem = F.t
   let create n m = (n,m, (List.init n (empty_row m)))
   let id_row n m = List.init m (fun i -> if(n=i)then(n,m,F.one)else())
   let identity = (n,m, (List.init n (fun i -> id_row i m)))
-  let from_row m = (1,1,m)
-  let set n m v mat = mat
-  let get n m mat = F.zero
-  let transpose m = m
-  let add a b = a
+  let from_row m = (List.length m,List.length (List.hd m), List.mapi (fun i r -> List.filter (fun (x,y,v) -> if(v<>F.zero)
+then(true)else(false)) (List.mapi (fun j e -> (i,j,e)) r)) m)
+  let set n m v (r,c,mat) = (r,c, List.mapi (fun i x-> ) mat)
+  let get n m mat = match (List.filter (fun (x,y,v) -> ((n=x) && (m=y))) (List.nth mat n)) with
+    | (a,b,value)::xs -> value
+    | [] -> 0
+  let transpose m = List.map (fun r -> List.mapi (fun (x,y,v) -> (y,x,v)) r) m
+  let add a b = let n = List.length a in let m = (List.length List.hd a) in  List.mapi (fun i r ->  (addRow i m r a b g) ) (create n m)
   let mul a b = a
 end
 
