@@ -219,13 +219,13 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
     | (a,b,value)::xs -> value
     | [] -> F.zero
   
-  let to_string (n,m,a) =   
+  let to_string (n,m,mat) =   
     let rec printRowSparse i im m b= 
     if(im < m)
     then (debugString (F.to_string (get i im b)); printRowSparse i (im+1) m b)
     else (debugString "\n")
     in
-    (List.iteri (fun i r -> (printRowSparse i 0 m a)) a) 
+    (List.iteri (fun i r -> (printRowSparse i 0 m a)) mat) 
   let create n m = (n,m, (List.init n (fun i -> [])))
   let id_row n m = List.filter (fun (a,b,value) -> (value<>F.zero)) (List.init m (fun i -> if(n=i)then(n,m,F.one)else(n,m,F.zero)))
   (*let identity n = (n,n, (List.init n (fun i -> id_row i n)))
