@@ -226,13 +226,18 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
     | [] -> F.zero
   
   
-  let transpose (n,m,mat) = (m,n,(List.map (fun r -> (List.map (fun (x,y,v) -> (y,x,v)) r)) mat))
+  let transpose (n,m,mat) =let res = (m,n,(List.map (fun r -> (List.map (fun (x,y,v) -> (y,x,v)) r)) mat)) in to_string res;res
   (*
   let add (n,m,a) (r,c,b) = List.mapi (fun i r ->  (addRow i m r a b get F.add F.zero)) (create n m)
   *)
   let add a b = a
   let mul a b = a
-  let to_string a = ""
+  let rec printRowSparse r i im m b= 
+    if(im < m)
+    then debugString (F.to_string (get i im b)); printRowSparse r i (im+1) m b
+    else debugString "\n"
+  in
+  let to_string (n,m,a) = List.iteri (fun i r -> printRowSparse r i m a) a 
 end
 
 
