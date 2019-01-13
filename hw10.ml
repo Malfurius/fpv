@@ -214,6 +214,11 @@ let rec addRow rIdx m r a b g add zero=
 module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list list)) and type elem = (F.t) = struct
   type t = (int*int*((int*int*F.t) list list))
   type elem = F.t
+  let set n m v (r,c,mat) = (r,c, List.mapi (fun i x-> if(n=i)then setRow n m x v else x) mat)
+  let get n m (i,j,mat) = match (List.filter (fun (x,y,v) -> ((n=x) && (m=y))) (List.nth mat n)) with
+    | (a,b,value)::xs -> value
+    | [] -> F.zero
+  
   let to_string (n,m,a) =   
     let rec printRowSparse r i im m b= 
     if(im < m)
@@ -227,11 +232,6 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
   *)
   let identity n = create n n
   let from_rows m = (List.length m,List.length (List.hd m), List.mapi (fun i r -> List.filter (fun (x,y,v) -> (v<>F.zero)) (List.mapi (fun j e -> (i,j,e)) r)) m)
-  let set n m v (r,c,mat) = (r,c, List.mapi (fun i x-> if(n=i)then setRow n m x v else x) mat)
-  let get n m (i,j,mat) = match (List.filter (fun (x,y,v) -> ((n=x) && (m=y))) (List.nth mat n)) with
-    | (a,b,value)::xs -> value
-    | [] -> F.zero
-  
   
   let transpose (n,m,mat) =let res = (m,n,(List.map (fun r -> (List.map (fun (x,y,v) -> (y,x,v)) r)) mat)) in to_string res;res
   (*
