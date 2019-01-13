@@ -222,7 +222,7 @@ module SparseMatrix (F:Ring) : Matrix with type t = (int*int*((int*int*F.t) list
   let to_string (n,m,a) =   
     let rec printRowSparse i im m b= 
     if(im < m)
-    then (debugString (F.to_string (get i im b)); printRowSparse r i (im+1) m b)
+    then (debugString (F.to_string (get i im b)); printRowSparse i (im+1) m b)
     else (debugString "\n")
     in
     (List.iteri (fun i r -> (printRowSparse i 0 m a)) a) 
