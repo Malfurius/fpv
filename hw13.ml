@@ -39,11 +39,20 @@ end
 open Thread
 open Event
 
+  let create f a =
+    let c = new_channel () in
+    let task () =
+      let r = try Result (f a) with e -> Ex e in
+      sync (send c r)
+    in
+    let _ = Thread.create task () in
+    c
+
 (* 13.4 *)
 let par_unary f a = 
   let apply e = create f e
   in
-  List.iter apply a
+  List.map apply a;
 
 let par_binary f a b = failwith "TODO"
 
