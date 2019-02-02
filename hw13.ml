@@ -152,7 +152,6 @@ module Array = struct
       let rec array_fun a s = 
         match sync(receive c) with
         | Size -> sync (send c s); array_fun a s
-        | Destroy -> ()
       in
       let _ = create (array_fun (List.init s v) s)
       in 
