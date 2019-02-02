@@ -153,7 +153,7 @@ module Array = struct
         match sync(receive c) with
         | Size -> sync (send c s); array_fun a s
       in
-      let _ = create (array_fun (List.init s v) s)
+      let _ = Thread.create (array_fun (List.init s v) s)
       in 
     c
 
