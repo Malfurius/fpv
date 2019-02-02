@@ -154,7 +154,7 @@ module Array = struct
         | Size -> sync (send c s); array_fun a s
         | Destroy -> ()
       in
-      let _ = create array_fun (List.init s v) s
+      let _ = create (array_fun (List.init s v) s)
       in 
     c
 
