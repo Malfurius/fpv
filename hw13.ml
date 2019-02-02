@@ -52,6 +52,15 @@ module Future = struct
     let _ = Thread.create task () in
     c
 
+    let bicreate f a b=
+    let c = new_channel () in
+    let task () =
+      let r = try Result (f a b) with e -> Ex e in
+      sync (send c r)
+    in
+    let _ = Thread.create task () in
+    c
+
   let get c =
     match sync (receive c) with
     | Result r -> r
@@ -124,9 +133,9 @@ let par_unary f a =
   Future.get channels
 
 let par_binary f a b = 
-  let createChannel e1 e2 = Future.create f (e1 e2)
+  let createChannel e1 e2 = Future.bicreate f e1 e2
   in
-  let channels = Future.when_all (List.map2 creatChannel a b)
+  let channels = Future.when_all (List.map2 createChannel a b)
   in
   Future.get channels
 
