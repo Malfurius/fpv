@@ -31,80 +31,8 @@ module Thread = struct
     tc := !tc + 1;
     create f a
 end
+
 module Future = struct
-  type 'a msg = Result of 'a | Ex of exn
-  type 'a t = 'a msg channel
-
-  let create f a =
-    let c = new_channel () in
-    let task () =
-      let r = try Result (f a) with e -> Ex e in
-      sync (send c r)
-    in
-    let _ = Thread.create task () in
-    c
-
-  let get c =
-    match sync (receive c) with
-    | Result r -> r
-    | Ex e -> raise e
-
-  let then_ f c =
-    let c' = new_channel () in
-    let task () =
-      let r = match sync (receive c) with
-      | Result r -> Result (f r)
-      | Ex e -> Ex e
-      in
-      sync (send c' r)
-    in
-    let _ = Thread.create task () in
-    c'
-
-  let when_any cs =
-    let c' = new_channel () in
-    let task () =
-      let r = select (List.map receive cs) in
-      sync (send c' r)
-    in
-    let _ = Thread.create task () in
-    c'
-
-  let when_all cs =
-    let c' = new_channel () in
-    let task () =
-      let r = List.fold_left (fun a c -> sync (receive c)::a) [] cs |> List.rev in
-      match List.find_opt (function Ex _ -> true | _ -> false) r with
-      | Some (Ex e) -> sync (send c' (Ex e))
-      | _ -> sync (send c' (Result (List.map (function Result r -> r | _ -> failwith "unreachable") r)))
-    in
-    let _ = Thread.create task () in
-    c'
-
-  (* additional stuff *)
-  let memoize c =
-    let c' = new_channel () in
-    let task () =
-      let r = sync (receive c') in
-      let rec repeat () =
-        sync (send c' r);
-        repeat ()
-      in
-      repeat ()
-    in
-    let _ = Thread.create task () in
-    c'
-
-  let result_to receiver_c c =
-    let task () =
-      match sync (receive c) with
-      | Result r -> sync (send receiver_c r)
-      | Ex e -> raise e
-    in
-    let _ = Thread.create task () in
-    ()
-
-  let get_opt c = poll (rmodule Future = struct
   type 'a msg = Result of 'a | Ex of exn
   type 'a t = 'a msg channel
 
@@ -191,10 +119,10 @@ open Event
 
 (* 13.4 *)
 let par_unary f a = 
-let createChannel e = Future.create f e
-in
-let channels = List.map createChannel a
-in
+  let createChannel e = Future.create f e
+  in
+  let channels = List.map createChannel a
+  in
 Future.get channels
 
 let par_binary f a b = failwith "TODO"
