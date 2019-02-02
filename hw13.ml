@@ -147,9 +147,6 @@ module Array = struct
   type 'a t = 'a channel
   type message = Size|Destroy
 
-  Size of ()
-  Destroy of ()
-
   let make s v = 
     let c = new_channel () in
       let rec array_fun a s = 
