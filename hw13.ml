@@ -31,6 +31,9 @@ module Thread = struct
     tc := !tc + 1;
     create f a
 end
+open Thread
+open Event
+
 
 module Future = struct
   type 'a msg = Result of 'a | Ex of exn
@@ -112,9 +115,6 @@ end
 (*****************************************************************************)
 (*************************** START OF HOMEWORK *******************************)
 (*****************************************************************************)
-open Thread
-open Event
-
 
 
 (* 13.4 *)
