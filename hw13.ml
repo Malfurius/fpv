@@ -119,16 +119,16 @@ end
 let par_unary f a = 
   let creatChannel e = Future.create f e
   in
-  let channels = List.map creatChannel a
+  let channels = Future.when_all (List.map creatChannel a)
   in
-  List.map Future.get channels
+  Future.get channels
 
 let par_binary f a b = 
   let createChannel e1 e2 = Future.create f e1 e2
   in
-  let channels = List.map2 creatChannel a b
+  let channels = Future.when_all (List.map2 creatChannel a b)
   in
-  List.map Future.get channels
+  Future.get channels
 
 
 (* 13.5 *)
