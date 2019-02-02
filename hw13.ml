@@ -31,14 +31,6 @@ module Thread = struct
     tc := !tc + 1;
     create f a
 end
-
-
-(*****************************************************************************)
-(*************************** START OF HOMEWORK *******************************)
-(*****************************************************************************)
-open Thread
-open Event
-
 module Future = struct
   type 'a msg = Result of 'a | Ex of exn
   type 'a t = 'a msg channel
@@ -188,24 +180,22 @@ module Future = struct
   let get_opt c = poll (eceive c)
 end
 
+
+(*****************************************************************************)
+(*************************** START OF HOMEWORK *******************************)
+(*****************************************************************************)
+open Thread
+open Event
+
+
+
 (* 13.4 *)
 let par_unary f a = 
-  let createChannel a =
-    let c = new_channel () in
-    let task () =
-      let r = try Result (f a) with e -> Ex e in
-      sync (send c r)
-    in
-    let _ = Thread.create task () in
-    c
-  in
-  let apply e = create f e
-  in
-  let channels = List.map (createChannel) a
-  in
-  let result = List.map get channels
-  in
-  result
+let createChannel e = Future.create f e
+in
+let channels = List.map createChannel a
+in
+Future.get channels
 
 let par_binary f a b = failwith "TODO"
 
