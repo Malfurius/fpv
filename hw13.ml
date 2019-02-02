@@ -145,6 +145,10 @@ exception OutOfBounds
 
 module Array = struct
   type 'a t = 'a channel
+  type message = Size|Destroy
+
+  Size of ()
+  Destroy of ()
 
   let make s v = 
     let c = new_channel () in
@@ -157,7 +161,7 @@ module Array = struct
       in 
     c
 
-  let size a = sync (send a (Size()));sync (receive a)
+  let size a = sync (send a (Size);sync (receive a)
 
   let set i v a = failwith "TODO"
 
@@ -165,7 +169,7 @@ module Array = struct
 
   let resize s v a = failwith "TODO"
 
-  let destroy a = sync (send a Destroy())
+  let destroy a = sync (send a Destroy
 
 end
 
