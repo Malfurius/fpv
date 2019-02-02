@@ -148,7 +148,7 @@ exception OutOfBounds
 module Array = struct
   type 'a t = 'a channel
   type 'a answer =  SizeAns of int|GetAns of 'a
-  type 'a message = Size of answer channel |Destroy of ()|Set of int*'a| Get of int*answer channel
+  type 'a message = Size of answer channel |Destroy of int|Set of int*'a| Get of int*answer channel
 
 
   let make s v =
@@ -156,7 +156,7 @@ module Array = struct
       let rec array_fun a = 
         match sync(receive c) with
         | Size(a_channel) ->  sync(send a_channel (SizeAns(List.length a))); array_fun a
-        | Destroy -> (fun a -> ())
+        | Destroy(i) -> (fun a -> ())
         | Set(i,v) -> let na = (List.mapi (fun idx e -> if(idx=i)then v else e) a) in array_fun a
         | Get(i,a_channel) -> sync(send a_channel GetAns(List.nth a i)); array_fun a
       in
@@ -177,7 +177,7 @@ module Array = struct
 
   let resize s v a = failwith "TODO"
 
-  let destroy a = sync (send a Destroy)
+  let destroy a = sync (send a Destroy(1))
 
 end
 
