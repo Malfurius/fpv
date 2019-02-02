@@ -39,7 +39,14 @@ end
 open Thread
 open Event
 
-  let create f a =
+  let get c =
+    match sync (receive c) with
+    | Result r -> r
+    | Ex e -> raise e
+
+(* 13.4 *)
+let par_unary f a = 
+  let createChannel a =
     let c = new_channel () in
     let task () =
       let r = try Result (f a) with e -> Ex e in
@@ -47,12 +54,14 @@ open Event
     in
     let _ = Thread.create task () in
     c
-
-(* 13.4 *)
-let par_unary f a = 
+  in
   let apply e = create f e
   in
-  List.map apply a;
+  let channels = List.map (createChannel) a
+  in
+  let result = List.map get channels
+  in
+  result
 
 let par_binary f a b = failwith "TODO"
 
