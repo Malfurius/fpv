@@ -154,6 +154,7 @@ module Array = struct
       let rec array_fun a = 
         match sync(receive c) with
         | Size(a_channel) ->  sync(send a_channel (Ans(List.length a))); array_fun a
+        | Destroy -> ()
       in
       let _ = Thread.create (array_fun (List.init s (fun _ -> v)))
       in 
