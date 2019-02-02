@@ -147,14 +147,17 @@ exception OutOfBounds
 
 module Array = struct
   type 'a t = 'a channel
-  type message = Size of message channel |Destroy|Ans of int
+  type message = Size of answer channel |Destroy|Set of int*a'| Get of int*answer channel
+  type answer =  SizeAns of int|GetAns of a'
 
   let make s v =
     let c = new_channel () in
       let rec array_fun a = 
         match sync(receive c) with
-        | Size(a_channel) ->  sync(send a_channel (Ans(List.length a))); array_fun a
+        | Size(a_channel) ->  sync(send a_channel (SizeAns(List.length a))); array_fun a
         | Destroy -> (fun a -> ())
+        | Set(i,v) -> let na = (List.mapi (fun idx e -> if(idx=i)then v else e) a) in array_fun a
+        | Get(i,a_channel) -> sync(send a_channel GetAns(List.nth a i)); array_fun a
       in
       let _ = Thread.create (array_fun (List.init s (fun _ -> v)))
       in 
@@ -163,11 +166,13 @@ module Array = struct
   let size a = 
     let a_channel = new_channel () in
     sync (send a (Size(a_channel))); match sync (receive a_channel) with
-    | Ans(v) -> v
+    | SizeAns(v) -> v
  
-  let set i v a = failwith "TODO"
+  let set i v a = sync (send a (Set(i,v)))
 
-  let get i a = failwith "TODO"
+  let get i a = let a_channel = new_channel () in
+  sync (send a Get(i,a_channel)); match sync(receive a_channel) with
+  | GetAns(v) -> v
 
   let resize s v a = failwith "TODO"
 
