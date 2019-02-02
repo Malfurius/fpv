@@ -144,9 +144,18 @@ let par_binary f a b =
 exception OutOfBounds
 
 module Array = struct
-  type 'a t = unit (* todo *)
+  type 'a t = 'a channel
 
-  let make s v = failwith "TODO"
+  let make s v = 
+    let c = new_channel () in
+      let rec array_fun a s = 
+        match sync(receive c) with
+        | Size -> sync (send s); array_fun a s
+        | Destroy -> ()
+      in
+      let _ = create array_fun (List.init s v) s
+      in 
+    c
 
   let size a = failwith "TODO"
 
