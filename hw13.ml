@@ -123,7 +123,7 @@ let par_unary f a =
   in
   let channels = List.map createChannel a
   in
-Future.get channels
+  List.map Future.get channels
 
 let par_binary f a b = failwith "TODO"
 
