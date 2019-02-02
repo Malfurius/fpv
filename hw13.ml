@@ -1,4 +1,6 @@
 (* testing utilities [do not change] *)
+open Thread
+open Event
 
 exception SyncDeadlocked
 module Event = struct
@@ -36,8 +38,6 @@ end
 (*****************************************************************************)
 (*************************** START OF HOMEWORK *******************************)
 (*****************************************************************************)
-open Thread
-open Event
 
 
 module Future = struct
