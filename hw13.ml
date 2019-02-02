@@ -108,7 +108,7 @@ module Future = struct
     let _ = Thread.create task () in
     ()
 
-  let get_opt c = poll (eceive c)
+  let get_opt c = poll (receive c)
 end
 
 
