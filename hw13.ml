@@ -149,11 +149,11 @@ module Array = struct
 
   let make s v = 
     let c = new_channel () in
-      let rec array_fun a size = 
+      let rec array_fun a = 
         match sync(receive c) with
-        | Size -> sync (send c size); array_fun a size
+        | Size -> sync (send c List.length a); array_fun a
       in
-      let _ = Thread.create (array_fun (List.init s v) s)
+      let _ = Thread.create (array_fun (List.init s v))
       in 
     c
 
