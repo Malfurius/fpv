@@ -145,20 +145,21 @@ exception OutOfBounds
 
 module Array = struct
   type 'a t = 'a channel
-  type message = Size|Destroy
+  type message = Size|Destroy|Ans of int
 
   let make s v = 
     let c = new_channel () in
       let rec array_fun a = 
         match sync(receive c) with
-        | Size -> sync (send c (List.length a)); array_fun a
+        | Size -> sync (send c Ans((List.length a))); array_fun a
       in
       let _ = Thread.create (array_fun (List.init s v))
       in 
     c
 
-  let size a = sync (send a (Size));sync (receive a)
-
+  let size a = sync (send a (Size)); match sync (receive a) with
+    | Ans(v) -> v
+ 
   let set i v a = failwith "TODO"
 
   let get i a = failwith "TODO"
