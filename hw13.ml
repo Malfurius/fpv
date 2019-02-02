@@ -1,6 +1,4 @@
 (* testing utilities [do not change] *)
-open Thread
-open Event
 
 exception SyncDeadlocked
 module Event = struct
@@ -38,7 +36,8 @@ end
 (*****************************************************************************)
 (*************************** START OF HOMEWORK *******************************)
 (*****************************************************************************)
-
+open Thread
+open Event
 
 module Future = struct
   type 'a msg = Result of 'a | Ex of exn
@@ -118,9 +117,9 @@ end
 
 (* 13.4 *)
 let par_unary f a = 
-  let createChannel e = Future.create f e
+  let creatChannel e = Future.create f e
   in
-  let channels = List.map createChannel a
+  let channels = List.map creatChannel a
   in
   List.map Future.get channels
 
