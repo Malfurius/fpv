@@ -39,6 +39,8 @@ end
 open Thread
 open Event
 
+let debugString str = Printf.printf "%s" str
+
 module Future = struct
   type 'a msg = Result of 'a | Ex of exn
   type 'a t = 'a msg channel
@@ -147,7 +149,7 @@ module Array = struct
   type 'a t = 'a channel
   type message = Size of message channel |Destroy|Ans of int
 
-  let make s v = 
+  let make s v = debugString v;
     let c = new_channel () in
       let rec array_fun a = 
         match sync(receive c) with
