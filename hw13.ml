@@ -150,14 +150,14 @@ module Array = struct
     let c = new_channel () in
       let rec array_fun a s = 
         match sync(receive c) with
-        | Size -> sync (send s); array_fun a s
+        | Size -> sync (send c s); array_fun a s
         | Destroy -> ()
       in
       let _ = create array_fun (List.init s v) s
       in 
     c
 
-  let size a = failwith "TODO"
+  let size a = sync (send a (Size()));sync (receive a)
 
   let set i v a = failwith "TODO"
 
@@ -165,7 +165,7 @@ module Array = struct
 
   let resize s v a = failwith "TODO"
 
-  let destroy a = failwith "TODO"
+  let destroy a = sync (send a Destroy())
 
 end
 
