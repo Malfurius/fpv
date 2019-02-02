@@ -149,7 +149,7 @@ module Array = struct
 
   let make s v = 
     let c = new_channel () in
-      let rec array_fun a s = 
+      let rec array_fun a size = 
         match sync(receive c) with
         | Size -> sync (send c s); array_fun a s
       in
