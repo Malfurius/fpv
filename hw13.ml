@@ -43,7 +43,7 @@ open Event
 let par_unary f a = 
   let apply e = create f e
   in
-  List.iter apply a;List.iter join a
+  List.iter apply a
 
 let par_binary f a b = failwith "TODO"
 
