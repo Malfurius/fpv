@@ -164,7 +164,7 @@ module Array = struct
         | Destroy(i) -> (fun a -> ())
         | Set(i,v, a_channel) -> let na = (if( (i>=0) && (i<List.length a) ) then (sync (send a_channel Conf);(List.mapi (fun idx e -> if(idx=i)then v else e) a))  else (sync(send a_channel (Exc(OutOfBounds) ));a)  ) in array_fun na
         | Get(i,a_channel) -> (if( (i>=0) && (i<List.length a) ) then sync(send a_channel (GetAns(List.nth a i))) else sync (send a_channel (Exc(OutOfBounds)))) ; array_fun a
-        | Resize(ns, v) -> let na = (if(ns>s) then (a@(List.init (ns-s) (fun _ -> v))) else sublist ns [] a); array_fun na
+        | Resize(ns, v) -> let na = (if(ns>s) then (a@(List.init (ns-s) (fun _ -> v))) else sublist ns [] a) in array_fun na
       in
       let _ = Thread.create array_fun (List.init s (fun _ -> v))
       in 
