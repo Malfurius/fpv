@@ -203,8 +203,8 @@ type serverData = ServerData of ((string*string) list)*((int*string*string*strin
 
 let document_server () = 
   let c = new_channel () in
-  let error a_c = sync (send a_c DocExc(InvalidOperation)) in
-  let auth u p l= (List.exists (fun (user,password) ->(u=user && p=password) ) l) in
+  let error a_c = sync (send a_c (DocExc(InvalidOperation))) in
+  let auth u p l= (List.exists (fun (user,password) -> (u=user && p=password) ) l) in
   let rec server_fun (userList,docList) = 
     match sync(receive c) with
     | CreateAcc(name,pw,a_channel) -> if (List.exists (fun (en,_)->name=en ) userList) then (sync(send a_channel (DocExc(InvalidOperation)));server_fun (userList,docList)) else sync(send a_channel (DocAns));server_fun ((name,pw)::userList,docList)
