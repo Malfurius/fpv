@@ -209,7 +209,7 @@ let document_server () =
     | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if (List.exists (fun (user,password)->(name=user && password=pw) ) userList) then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,[name])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
     | _ -> server_fun (userList,docList)
   in
-  let _ = Thread.create server_fun ServerData([],[])
+  let _ = Thread.create server_fun (ServerData([],[]))
   in
   c
 
