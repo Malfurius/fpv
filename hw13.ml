@@ -197,16 +197,19 @@ end
 exception InvalidOperation
 
 type 'a t = 'a channel
-type 'a docAnswer = DocExc of exn|DocAns|PubAns of int
-type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel
-type serverData = ServerData of ((string*string) list)*((int*string*string list) list)
+type 'a docAnswer = DocExc of exn|DocAns|PubAns of int|ViewAns of string
+type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel
+type serverData = ServerData of ((string*string) list)*((int*string*string*string list) list)
 
 let document_server () = 
   let c = new_channel () in
+  let error a_c = sync (send a_c DocExc(InvalidOperation)) in
+  let auth u p l= (List.exists (fun (user,password) ->(u=user && p=password) ) l) in
   let rec server_fun (userList,docList) = 
     match sync(receive c) with
     | CreateAcc(name,pw,a_channel) -> if (List.exists (fun (en,_)->name=en ) userList) then (sync(send a_channel (DocExc(InvalidOperation)));server_fun (userList,docList)) else sync(send a_channel (DocAns));server_fun ((name,pw)::userList,docList)
-    | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if (List.exists (fun (user,password)->(name=user && password=pw) ) userList) then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,[name])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
+    | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if auth name pw userList then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,name,[name])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
+    | View(name,pw,docId,a_channel) -> if (auth name pw userList  && (docId<List.length docList) ) then (let (id,doc,owner,viewerList) = List.nth docList in if (List.exists (fun v->v=name) viewerList) then sync (send a_channel (ViewAns(doc)) );server_fun (userList,docList) else error a_channel;server_fun (userList,docList) ) else error a_channel; server_fun (userList,docList)
     | _ -> server_fun (userList,docList)
   in
   let _ = Thread.create server_fun ([],[])
