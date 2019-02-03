@@ -177,7 +177,7 @@ module Array = struct
 
   let resize s v a = failwith "TODO"
 
-  let destroy a = sync (send a Destroy(1))
+  let destroy a = sync (send a (Destroy(1)))
 
 end
 
