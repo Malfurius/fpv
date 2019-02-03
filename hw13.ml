@@ -197,14 +197,14 @@ end
 exception InvalidOperation
 
 type 'a t = 'a channel
-type 'a docAnswer = DocExc of exn
+type 'a docAnswer = DocExc of exn|DocAns
 type 'a docMessage = CreateAcc of string*string*'a docAnswer channel
 
 let document_server () = 
   let c = new_channel () in
   let rec server_fun arg = 
     match sync(receive c) with
-    | CreateAcc(name,pw,a_channel) -> if (List.exists (fun (en,_,_)->name=en ) arg) then (sync(send a_channel (DocExc(InvalidOperation)));server_fun arg) else server_fun ((name,pw,[])::arg)
+    | CreateAcc(name,pw,a_channel) -> if (List.exists (fun (en,_,_)->name=en ) arg) then (sync(send a_channel (DocExc(InvalidOperation)));server_fun arg) else sync(send a_channel (DocAns));server_fun ((name,pw,[])::arg)
     | _ -> server_fun arg
   in
   let _ = Thread.create server_fun []
@@ -219,7 +219,9 @@ let view u p id s = failwith "TODO"
 
 let add_account u p s =
 let a_channel = new_channel () in
-sync (send s (CreateAcc(u,p,a_channel))); match sync(receive a_channel) with
+sync (send s (CreateAcc(u,p,a_channel))); 
+match sync(receive a_channel) with
+| Ans -> ()
 | DocExc(e) -> raise e
 
 let add_viewer u p id viewer s = failwith "TODO"
