@@ -153,7 +153,7 @@ module Array = struct
 
   let make s v =
     let rec sublist s l nl = match (l,s) with
-    | (x::xs,_) -> sublist (s-1) (l@x) xs
+    | (x::xs,_) -> sublist (s-1) (l::x) xs
     | (x::xs,0) -> nl
     | ([],_) -> raise OutOfBounds
     in
