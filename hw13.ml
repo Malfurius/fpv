@@ -198,7 +198,7 @@ exception InvalidOperation
 
 type 'a t = 'a channel
 type 'a docAnswer = DocExc of exn
-type 'a docMessage = CreateAcc of string*string*'a docAnswer
+type 'a docMessage = CreateAcc of string*string*'a docAnswer channel
 
 let document_server () = 
   let c = new_channel () in
