@@ -148,7 +148,7 @@ exception OutOfBounds
 module Array = struct
   type 'a t = 'a channel
   type 'a answer =  SizeAns of int|GetAns of 'a|Exc of exn| Conf
-  type 'a message = Size of ('a answer channel) |Destroy of int|Set of int*'a*'a answer channel| Get of int* 'a answer channel
+  type 'a message = Size of ('a answer channel) |Destroy of int|Set of int*'a*'a answer channel| Get of int* 'a answer channel|Resize of int*'a
 
 
   let make s v =
@@ -159,6 +159,7 @@ module Array = struct
         | Destroy(i) -> (fun a -> ())
         | Set(i,v, a_channel) -> let na = (if( (i>=0) && (i<List.length a) ) then (sync (send a_channel Conf);(List.mapi (fun idx e -> if(idx=i)then v else e) a))  else (sync(send a_channel (Exc(OutOfBounds) ));a)  ) in array_fun na
         | Get(i,a_channel) -> (if( (i>=0) && (i<List.length a) ) then sync(send a_channel (GetAns(List.nth a i))) else sync (send a_channel (Exc(OutOfBounds)))) ; array_fun a
+        | Resize(ns, v) -> (if(ns>s) then (a@(List.init (ns-s) (fun _ -> v))) else List.mapi (fun i e->if(i>=ns)then () else e))
       in
       let _ = Thread.create array_fun (List.init s (fun _ -> v))
       in 
@@ -180,7 +181,7 @@ module Array = struct
   | GetAns(v) -> v
   | Exc(e) -> raise e
 
-  let resize s v a = failwith "TODO"
+  let resize s v a = sync(send a (Resize(s,v)))
 
   let destroy a = sync (send a (Destroy(1)))
 
