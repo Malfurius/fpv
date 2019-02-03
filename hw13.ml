@@ -212,8 +212,8 @@ let document_server () =
     | View(name,pw,docId,a_channel) ->  if ((auth name pw userList)  && (docId<(List.length docList)))
                                         then match (List.nth docList docId) with
                                               | (id,doc,owner,viewerList) ->  if (List.exists (fun v->v=name) viewerList) 
-                                                                              then sync (send a_channel (ViewAns(doc)));server_fun (userList,docList)
-                                                                              else error a_channel;server_fun (userList,docList)
+                                                                              then (sync (send a_channel (ViewAns(doc)));server_fun (userList,docList))
+                                                                              else (error a_channel;server_fun (userList,docList))
                                         else (error a_channel; server_fun (userList,docList))
     | _ -> server_fun (userList,docList)
   in
