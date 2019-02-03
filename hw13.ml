@@ -198,7 +198,7 @@ exception InvalidOperation
 
 type 'a t = 'a channel
 type 'a docAnswer = DocExc of exn|DocAns|PubAns of int|ViewAns of string
-type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel|ChangeOwner of string*string*int*string*'a docAnswer channel
+type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel|ChangeOwner of string*string*int*string*'a docAnswer channel|AddViewer of string*string*int*string*'a docAnswer channel
 type serverData = ServerData of ((string*string) list)*((int*string*string*string list) list)
 
 let document_server () = 
@@ -220,6 +220,12 @@ let document_server () =
                                                       then match (List.nth docList docId) with
                                                           | (id,doc,owner,viewerList) ->  if(name=owner)
                                                                                           then (sync(send a_channel (DocAns));server_fun (userList,(List.map (fun (dId,dDoc,dOwner,dViwerList) -> if (dId=docId) then (dId,dDoc,nOwner,dViwerList) else (dId,dDoc,dOwner,dViwerList)) docList)))
+                                                                                          else (error a_channel;server_fun (userList,docList))
+                                                      else error a_channel
+    | AddViewer (name,pw,docId,nViewer,a_channel) -> if ((auth name pw userList)  && (docId<(List.length docList)))
+                                                      then match (List.nth docList docId) with
+                                                          | (id,doc,owner,viewerList) ->  if(name=owner)
+                                                                                          then (sync(send a_channel (DocAns));server_fun (userList,(List.map (fun (dId,dDoc,dOwner,dViwerList) -> if (dId=docId) then (dId,dDoc,dOwner,nViwer::dViwerList) else (dId,dDoc,dOwner,dViwerList)) docList)))
                                                                                           else (error a_channel;server_fun (userList,docList))
                                                       else error a_channel
     | _ -> server_fun (userList,docList)
@@ -256,7 +262,12 @@ let add_account u p s =
   | DocAns -> ()
   | DocExc(e) -> raise e
 
-let add_viewer u p id viewer s = failwith "TODO"
+let add_viewer u p id viewer s = 
+  let a_channel = new_channel () in
+  sync (send s (AddViewer(u,p,id,viwer,a_channel))); 
+  match sync(receive a_channel) with
+  | DocAns -> ()
+  | DocExc(e) -> raise e
 
 
 (*****************************************************************************)
