@@ -219,7 +219,7 @@ let document_server () =
 let publish u p doc s = 
   let a_channel = new_channel () in
   sync (send s (Publish(u,p,doc,a_channel)));
-  match sync (receive a_channel) with 
+  match sync (receive a_channel) with
   | PubAns(i) -> i
   | DocExc(e) -> raise e
 
