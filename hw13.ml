@@ -203,7 +203,7 @@ let document_server () =
   let c = new_channel () in
   let rec server_fun arg = 
     match sync(receive c) with
-    | CreateAcc(name,pw) -> if (List.exists (fun (en,_,_)->name=en ) arg) then server_fun arg else server_fun (name,pw,[])::arg
+    | CreateAcc(name,pw) -> if (List.exists (fun (en,_,_)->name=en ) arg) then server_fun arg else server_fun ((name,pw,[])::arg)
     | _ -> server_fun arg
   in
   let _ = Thread.create server_fun []
