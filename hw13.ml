@@ -213,7 +213,7 @@ let document_server () =
                                         then (match List.nth docList with
                                               | (id,doc,owner,viewerList) ->  (if (List.exists (fun v->v=name) viewerList) 
                                                                               then sync (send a_channel (ViewAns(doc)));server_fun (userList,docList)
-                                                                              else error a_channel;server_fun (userList,docList)))
+                                                                              )else error a_channel;server_fun (userList,docList))
                                         else (error a_channel; server_fun (userList,docList))
     | _ -> server_fun (userList,docList)
   in
