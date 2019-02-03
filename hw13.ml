@@ -264,7 +264,7 @@ let add_account u p s =
 
 let add_viewer u p id viewer s = 
   let a_channel = new_channel () in
-  sync (send s (AddViewer(u,p,id,viwer,a_channel))); 
+  sync (send s (AddViewer(u,p,id,viewer,a_channel))); 
   match sync(receive a_channel) with
   | DocAns -> ()
   | DocExc(e) -> raise e
