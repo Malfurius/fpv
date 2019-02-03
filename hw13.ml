@@ -148,7 +148,7 @@ exception OutOfBounds
 module Array = struct
   type 'a t = 'a channel
   type 'a answer =  SizeAns of int|GetAns of 'a
-  type 'a message = Size of ('a answer channel) |Destroy of int|Set of int*'a| Get of int*answer channel
+  type 'a message = Size of ('a answer channel) |Destroy of int|Set of int*'a| Get of int* 'a answer channel
 
 
   let make s v =
