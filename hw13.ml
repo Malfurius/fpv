@@ -160,7 +160,7 @@ module Array = struct
         | Set(i,v) -> let na = (List.mapi (fun idx e -> if(idx=i)then v else e) a) in array_fun a
         | Get(i,a_channel) -> sync(send a_channel GetAns(List.nth a i)); array_fun a
       in
-      let _ = Thread.create (array_fun (List.init s (fun _ -> v)))
+      let _ = Thread.create array_fun (List.init s (fun _ -> v))
       in 
     c
 
