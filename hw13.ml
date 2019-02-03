@@ -148,7 +148,7 @@ exception OutOfBounds
 module Array = struct
   type 'a t = 'a channel
   type 'a answer =  SizeAns of int|GetAns of 'a|Exc of exn| Conf
-  type 'a message = Size of ('a answer channel) |Destroy of int|Set of int*'a| Get of int* 'a answer channel
+  type 'a message = Size of ('a answer channel) |Destroy of int|Set of int*'a*'a answer channel| Get of int* 'a answer channel
 
 
   let make s v =
@@ -169,7 +169,11 @@ module Array = struct
     sync (send a (Size(a_channel))); match sync (receive a_channel) with
     | SizeAns(v) -> v
  
-  let set i v a = sync (send a (Set(i,v)))
+  let set i v a =
+  let a_channel = new_channel () in
+   sync (send a (Set(i,v,a_channel))); match sync(receive a_channel) with
+   | Conf -> ()
+   | Exc(e) -> raise e
 
   let get i a = let a_channel = new_channel () in
   sync (send a (Get(i,a_channel))); match sync(receive a_channel) with
