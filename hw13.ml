@@ -158,7 +158,7 @@ module Array = struct
         | Size(a_channel) ->  sync(send a_channel (SizeAns(List.length a))); array_fun a
         | Destroy(i) -> (fun a -> ())
         | Set(i,v) -> let na = (List.mapi (fun idx e -> if(idx=i)then v else e) a) in array_fun a
-        | Get(i,a_channel) -> sync(send a_channel GetAns(List.nth a i)); array_fun a
+        | Get(i,a_channel) -> sync(send a_channel (GetAns(List.nth a i))); array_fun a
       in
       let _ = Thread.create array_fun (List.init s (fun _ -> v))
       in 
