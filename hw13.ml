@@ -196,8 +196,19 @@ end
 (* 13.6 *)
 exception InvalidOperation
 
+type 'a t = 'a channel
+type 'a docMessage = CreateAcc of string*string
 
-let document_server () = failwith "TODO"
+let document_server () = 
+  let c = new_channel () in
+  let rec server_fun arg = 
+    match sync(receive c) with
+    | CreateAcc(name,pw) -> if (List.exists (fun (en,_,_)->name=en ) arg) then server_fun arg else server_fun (name,pw,[])::arg
+    | _ -> server_fun arg
+  in
+  let _ = Thread.create server_fun []
+  in
+  c
 
 let publish u p doc s = failwith "TODO"
 
@@ -205,7 +216,7 @@ let change_owner u p id owner s = failwith "TODO"
 
 let view u p id s = failwith "TODO"
 
-let add_account u p s = failwith "TODO"
+let add_account u p s = sync (send s (CreateAcc(u,p)))
 
 let add_viewer u p id viewer s = failwith "TODO"
 
