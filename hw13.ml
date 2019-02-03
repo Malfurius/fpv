@@ -234,15 +234,15 @@ let view u p id s =
   let a_channel = new_channel () in
   sync (send s (View(u,p,id,add_account)));
   match sync(receive a_channel) with
-  |ViewAns(i) -> i
-  |DocExc(e) -> raise e
+  | ViewAns(i) -> i
+  | DocExc(e) -> raise e
 
 let add_account u p s =
-let a_channel = new_channel () in
-sync (send s (CreateAcc(u,p,a_channel))); 
-match sync(receive a_channel) with
-| DocAns -> ()
-| DocExc(e) -> raise e
+  let a_channel = new_channel () in
+  sync (send s (CreateAcc(u,p,a_channel))); 
+  match sync(receive a_channel) with
+  | DocAns -> ()
+  | DocExc(e) -> raise e
 
 let add_viewer u p id viewer s = failwith "TODO"
 
