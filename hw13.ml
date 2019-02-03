@@ -152,6 +152,11 @@ module Array = struct
 
 
   let make s v =
+    let rec sublist s l nl = match (l,s) with
+    | (x::xs,_) -> sublist (s-1) (l@x) xs
+    | (x::xs,0) -> nl
+    | [] -> raise OutOfBounds
+    in
     let c = new_channel () in
       let rec array_fun a = 
         match sync(receive c) with
@@ -159,7 +164,7 @@ module Array = struct
         | Destroy(i) -> (fun a -> ())
         | Set(i,v, a_channel) -> let na = (if( (i>=0) && (i<List.length a) ) then (sync (send a_channel Conf);(List.mapi (fun idx e -> if(idx=i)then v else e) a))  else (sync(send a_channel (Exc(OutOfBounds) ));a)  ) in array_fun na
         | Get(i,a_channel) -> (if( (i>=0) && (i<List.length a) ) then sync(send a_channel (GetAns(List.nth a i))) else sync (send a_channel (Exc(OutOfBounds)))) ; array_fun a
-        | Resize(ns, v) -> (if(ns>s) then (a@(List.init (ns-s) (fun _ -> v))) else List.mapi (fun i e->if(i>=ns)then () else e))
+        | Resize(ns, v) -> (if(ns>s) then (a@(List.init (ns-s) (fun _ -> v))) else sublist ns [] a)
       in
       let _ = Thread.create array_fun (List.init s (fun _ -> v))
       in 
