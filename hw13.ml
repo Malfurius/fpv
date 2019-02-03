@@ -211,9 +211,9 @@ let document_server () =
     | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if auth name pw userList then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,name,[name])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
     | View(name,pw,docId,a_channel) ->  if ( (auth name pw userList)  && (docId<List.length docList)) 
                                         then match List.nth docList with
-                                              | (id,doc,owner,viewerList) ->  (if (List.exists (fun v->v=name) viewerList) 
-                                                                              then sync (send a_channel (ViewAns(doc)) );server_fun (userList,docList)
-                                                                              else error a_channel;server_fun (userList,docList))
+                                              | (id,doc,owner,viewerList) ->  if (List.exists (fun v->v=name) viewerList) 
+                                                                              then sync (send a_channel (ViewAns(doc)));server_fun (userList,docList)
+                                                                              else error a_channel;server_fun (userList,docList)
 
                                         else error a_channel; server_fun (userList,docList)
     | _ -> server_fun (userList,docList)
