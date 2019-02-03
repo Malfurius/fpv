@@ -155,7 +155,7 @@ module Array = struct
     let rec sublist s l nl = match (l,s) with
     | (x::xs,_) -> sublist (s-1) (l@x) xs
     | (x::xs,0) -> nl
-    | [] -> raise OutOfBounds
+    | ([],_) -> raise OutOfBounds
     in
     let c = new_channel () in
       let rec array_fun a = 
