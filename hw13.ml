@@ -198,7 +198,7 @@ exception InvalidOperation
 
 type 'a t = 'a channel
 type 'a docAnswer = DocExc of exn|DocAns|PubAns of int|ViewAns of string
-type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel|ChangeOwner of string*string*string*int*'a docAnswer channel
+type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel|ChangeOwner of string*string*int*string*'a docAnswer channel
 type serverData = ServerData of ((string*string) list)*((int*string*string*string list) list)
 
 let document_server () = 
