@@ -172,7 +172,7 @@ module Array = struct
   let set i v a = sync (send a (Set(i,v)))
 
   let get i a = let a_channel = new_channel () in
-  sync (send a Get(i,a_channel)); match sync(receive a_channel) with
+  sync (send a (Get(i,a_channel))); match sync(receive a_channel) with
   | GetAns(v) -> v
 
   let resize s v a = failwith "TODO"
