@@ -219,7 +219,7 @@ let document_server () =
     | ChangeOwner(name,pw,docId,nOwner,a_channel) ->  if ((auth name pw userList)  && (docId<(List.length docList)))
                                                       then match (List.nth docList docId) with
                                                           | (id,doc,owner,viewerList) ->  if(name=owner)
-                                                                                          then (sync(send a_channel (DocAns));(userList,(List.map (fun (dId,dDoc,dOwner,dViwerList)-> if (dId=docId) then (dId,dDoc,nOwner,dViwerList) else (dId,dDoc,dOwner,dViwerList) ) docList)))
+                                                                                          then (sync(send a_channel (DocAns));server_fun (userList,(List.map (fun (dId,dDoc,dOwner,dViwerList) -> if (dId=docId) then (dId,dDoc,nOwner,dViwerList) else (dId,dDoc,dOwner,dViwerList)) docList)))
                                                                                           else (error a_channel;server_fun (userList,docList))
                                                       else error a_channel
     | _ -> server_fun (userList,docList)
