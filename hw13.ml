@@ -232,7 +232,7 @@ let change_owner u p id owner s = failwith "TODO"
 
 let view u p id s = 
   let a_channel = new_channel () in
-  sync (send s (View(u,p,id,add_account)));
+  sync (send s (View(u,p,id,a_channel)));
   match sync(receive a_channel) with
   | ViewAns(i) -> i
   | DocExc(e) -> raise e
