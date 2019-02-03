@@ -206,7 +206,7 @@ let document_server () =
   let rec server_fun (userList,docList) = 
     match sync(receive c) with
     | CreateAcc(name,pw,a_channel) -> if (List.exists (fun (en,_)->name=en ) userList) then (sync(send a_channel (DocExc(InvalidOperation)));server_fun (userList,docList)) else sync(send a_channel (DocAns));server_fun ((name,pw)::userList,docList)
-    | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if (List.exists (fun (user,password)->(name=user && password=pw) ) userList) then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,[name]))) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
+    | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if (List.exists (fun (user,password)->(name=user && password=pw) ) userList) then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,[name])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
     | _ -> server_fun arg
   in
   let _ = Thread.create server_fun ServerData([],[])
