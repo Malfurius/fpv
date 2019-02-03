@@ -198,7 +198,7 @@ exception InvalidOperation
 
 type 'a t = 'a channel
 type 'a docAnswer = DocExc of exn|DocAns|PubAns of int|ViewAns of string
-type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel
+type 'a docMessage = CreateAcc of string*string*'a docAnswer channel|Publish of string*string*string*'a docAnswer channel|View of string*string*int*'a docAnswer channel|ChangeOwner of string*string*int*'a docAnswer channel
 type serverData = ServerData of ((string*string) list)*((int*string*string*string list) list)
 
 let document_server () = 
@@ -208,13 +208,20 @@ let document_server () =
   let rec server_fun (userList,docList) = 
     match sync(receive c) with
     | CreateAcc(name,pw,a_channel) -> if (List.exists (fun (en,_)->name=en ) userList) then (sync(send a_channel (DocExc(InvalidOperation)));server_fun (userList,docList)) else sync(send a_channel (DocAns));server_fun ((name,pw)::userList,docList)
-    | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if auth name pw userList then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,name,[name])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
+    | Publish(name,pw,doc,a_channel) -> let nId = List.length docList in  if auth name pw userList then (sync (send a_channel (PubAns(nId)));server_fun (userList,(nId,doc,name,[])::docList)) else (sync (send a_channel (DocExc(InvalidOperation)) );server_fun (userList,docList))
     | View(name,pw,docId,a_channel) ->  if ((auth name pw userList)  && (docId<(List.length docList)))
                                         then match (List.nth docList docId) with
-                                              | (id,doc,owner,viewerList) ->  if (List.exists (fun v->v=name) viewerList) 
+                                              | (id,doc,owner,viewerList) ->  if (List.exists (fun v->v=name) viewerList || name=owner) 
                                                                               then (sync (send a_channel (ViewAns(doc)));server_fun (userList,docList))
                                                                               else (error a_channel;server_fun (userList,docList))
+                                                                        
                                         else (error a_channel; server_fun (userList,docList))
+    | ChangeOwner(name,pw,docId,nOwner,a_channel) ->  if ((auth name pw userList)  && (docId<(List.length docList)))
+                                                      then match (List.nth docList docId) with
+                                                          | (id,doc,owner,viewerList) ->  if(name=owner)
+                                                                                          then sync(send a_channel (DocAns));(userList,(List.map (fun (dId,dDoc,dOwner,dViwerList)-> if (dId=docId) then (dId,dDoc,nOwner,dViwerList) else (dId,dDoc,dOwner,dViwerList) ) docList))
+                                                                                          else error a_channel;server_fun (userList,docList)
+                                                      else error a_channel
     | _ -> server_fun (userList,docList)
   in
   let _ = Thread.create server_fun ([],[])
